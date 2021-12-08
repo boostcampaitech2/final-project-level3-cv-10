@@ -15,3 +15,4 @@ model : model weight를 load하기 위한 .pth 파일 저장(활용할 때 경�
 ---
 ### 주의할 점
 - porting.ipynb 파일을 따라 진행하는 과정에서, 여러 library를 install 해야합니다. 모든 과정은 https://github.com/sithu31296/PyTorch-ONNX-TFLite#onnx-model-inference 를 통해 진행하였기 때문에, 해당 링크에서 install해야 하는 library에 대해 알 수 있습니다.
+- onnx-tf의 경우 위 링크를 따라가도 적용이 잘 안될 수 있음. 해결방법은 https://github.com/onnx/onnx-tensorflow/issues/550 참고
