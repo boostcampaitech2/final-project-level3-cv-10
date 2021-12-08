@@ -11,9 +11,21 @@ from albumentations.pytorch import ToTensorV2
 
 from pycocotools.coco import COCO
 
+from utils import timer
 # class_colormap = pd.read_csv(
 #     "/opt/ml/segmentation/baseline_code/class_dict.csv")
 # palette = class_colormap.iloc[:, 1:].values.astype(np.uint8)
+
+CLASSES = [
+    'background', 'alley_crosswalk', 'alley_damaged', 'alley_normal',
+    'alley_speed_bump', 'bike_lane', 'braille_guide_blocks_damaged',
+    'braille_guide_blocks_normal', 'caution_zone_grating',
+    'caution_zone_manhole', 'caution_zone_repair_zone', 'caution_zone_stairs',
+    'caution_zone_tree_zone', 'roadway_crosswalk', 'roadway_normal',
+    'sidewalk_asphalt', 'sidewalk_blocks', 'sidewalk_cement',
+    'sidewalk_damaged', 'sidewalk_other', 'sidewalk_soil_stone',
+    'sidewalk_urethane'
+]
 
 
 def get_train_transform():
@@ -33,6 +45,7 @@ def get_valid_transform():
                      })
 
 
+@timer
 class CustomDataset(Dataset):
     """COCO format"""
     def __init__(self, data_json, mode='train', transforms=None):

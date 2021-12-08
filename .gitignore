@@ -1,8 +1,8 @@
 # Custom
 wandb/
 work_dirs/
-*.pt
-*.pth
+# *.pt
+# *.pth
 submission/
 *.log
 

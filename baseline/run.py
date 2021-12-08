@@ -11,11 +11,12 @@ import torch.nn as nn
 import torch.optim as optim
 # from torch.optim import lr_scheduler
 
+import nni
 from torch.utils.data import DataLoader
 
 # Custom
 from models.deeplabv3 import deeplabv3_mobilenet_v3_large
-from train import train_model
+from train import train
 from datasets import CustomDataset
 from datasets import get_train_transform
 
@@ -36,13 +37,8 @@ def collate_fn(batch):
     return tuple(zip(*batch))
 
 
-def main():
-    config = dict(epochs=25, batch_size=24, lr=1e-4)
+def main(args):
 
-    # NUM_CLASS = 10
-    # CLASSES = ("Background", "General trash", "Paper", "Paper pack", "Metal",
-    #            "Glass", "Plastic", "Styrofoam", "Plastic bag", "Battery",
-    #            "Clothing")
     TRAIN_PROCESS = ['train', 'val']
     TRAIN_JSON = {
         "train":
@@ -56,7 +52,6 @@ def main():
         'val': get_train_transform(),
     }
 
-    _time = time.perf_counter()
     recycle_dataset = {
         x: CustomDataset(
             data_json=TRAIN_JSON[x],
@@ -64,13 +59,12 @@ def main():
         )
         for x in TRAIN_PROCESS
     }
-    logger.info(f"Dataset progress. {time.perf_counter() - _time:.4f}s")
 
     _time = time.perf_counter()
     dataloaders = {
         x: DataLoader(
             recycle_dataset[x],
-            batch_size=config['batch_size'],
+            batch_size=args['batch_size'],
             shuffle=True,
             num_workers=4,
             pin_memory=True,
@@ -82,29 +76,41 @@ def main():
     # pdb.set_trace()
 
     _time = time.perf_counter()
-    model = deeplabv3_mobilenet_v3_large()
+    # model = deeplabv3_mobilenet_v3_large(pretrained=False)
+    model = deeplabv3_mobilenet_v3_large(pretrained=False, aux_loss=True)
     model.to(device)
     logger.info(f"Model progress. {time.perf_counter() - _time:.4f}s")
 
     optimizer = optim.AdamW(
         model.parameters(),
-        lr=config['lr'],
+        lr=args['lr'],
     )
 
     loss_func = nn.CrossEntropyLoss()
 
     # training
-    train_model(
-        model=model,
-        dataloaders=dataloaders,
-        optimizer=optimizer,
-        device=device,
-        criterion=loss_func,
-        # scheduler=scheduler,
-        num_epochs=config['epochs'],
-        train_process=TRAIN_PROCESS,
-    )
+    N_EPOCH = args['epochs']
+    valid_mIoU = 0
+    for epoch in range(N_EPOCH):
+        logger.info(f"Epoch {epoch + 1:>2}/{N_EPOCH} ----------")
+        metric = train(
+            epoch=epoch,
+            model=model,
+            dataloaders=dataloaders,
+            optimizer=optimizer,
+            device=device,
+            criterion=loss_func,
+            # scheduler=scheduler,
+            train_process=TRAIN_PROCESS,
+            autocast_enabled=args['fp16'],
+        )
+        valid_mIoU = metric['val']['mIoU']
+    #     nni.report_intermediate_result(valid_mIoU)
+    # nni.report_final_result(valid_mIoU)
+
     torch.save(model.state_dict(), 'model_weights.pth')
+
+    return valid_mIoU / N_EPOCH
 
 
 if __name__ == "__main__":
@@ -113,7 +119,9 @@ if __name__ == "__main__":
         'cuda:0') if torch.cuda.is_available() else torch.device('cpu')
     # device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-    main()
+    # params = nni.get_next_parameter()
+    params = dict(epochs=15, lr=1e-4, batch_size=32, fp16=False)
+    main(params)
 
     # import wandb
 
