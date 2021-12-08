@@ -126,7 +126,8 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         final long inferenceTime = SystemClock.elapsedRealtime() - startTime;
         Log.d("ImageSegmentation",  "inference time (ms): " + inferenceTime);
 
-        final Tensor outputTensor = outTensors.get("out").toTensor();
+        // final Tensor outputTensor = outTensors.get("out").toTensor();
+        final Tensor outputTensor = outTensors.toTensor();
         final float[] scores = outputTensor.getDataAsFloatArray();
         int width = mBitmap.getWidth();
         int height = mBitmap.getHeight();
