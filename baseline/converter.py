@@ -94,26 +94,29 @@ class Torch2TFLiteConverter:
                 imread_flags = cv2.IMREAD_COLOR
             else:
                 imread_flags = cv2.IMREAD_ANYCOLOR + cv2.IMREAD_ANYDEPTH
-            try:
-                img = cv2.resize(
-                    src=cv2.imread(file_path, imread_flags),
-                    dsize=target_shape[:2],
-                    interpolation=cv2.INTER_LINEAR
-                )
-                if len(img.shape) == 3:
-                    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            # try:
+            img = cv2.imread('test.jpg'),
+            print(img)
+            img = cv2.resize(
+                # src=cv2.imread('test.jpg', imread_flags),
+                src=img[0],
+                dsize=[640, 480],
+                interpolation=cv2.INTER_LINEAR
+            )
+            if len(img.shape) == 3:
+                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-                if normalize:
-                    img = img * 1. / 255
-                img = img.astype(np.float32)
+            if normalize:
+                img = img * 1. / 255
+            img = img.astype(np.float32)
 
-                sample_data_np = np.transpose(img, (2, 0, 1))[np.newaxis, :, :, :]
-                sample_data_torch = torch.from_numpy(sample_data_np)
-                logging.info(f'Sample input successfully loaded from, {file_path}')
+            sample_data_np = np.transpose(img, (2, 0, 1))[np.newaxis, :, :, :]
+            sample_data_torch = torch.from_numpy(sample_data_np)
+            logging.info(f'Sample input successfully loaded from, {file_path}')
 
-            except Exception:
-                logging.error(f'Can not load sample input from, {file_path}')
-                sys.exit(-1)
+            # except Exception:
+            #     logging.error(f'Can not load sample input from, {file_path}')
+            #     sys.exit(-1)
 
         else:
             logging.info(f'Sample input file path not specified, random data will be generated')
