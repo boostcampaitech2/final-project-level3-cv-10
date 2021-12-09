@@ -154,8 +154,8 @@ class DeepLabV3(nn.Module):
                               align_corners=False)
 
             result["aux"] = x
-
-        result = x
+        else:
+            result = x
 
         return result
 

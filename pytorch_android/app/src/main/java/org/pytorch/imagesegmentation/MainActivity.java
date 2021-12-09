@@ -33,13 +33,13 @@ public class MainActivity extends AppCompatActivity implements Runnable {
     private ProgressBar mProgressBar;
     private Bitmap mBitmap = null;
     private Module mModule = null;
-    private String mImagename = "test.jpg";
+    private String mImagename = "MP_SEL_SUR_001055.jpg";
 
     // see http://host.robots.ox.ac.uk:8080/pascal/VOC/voc2007/segexamples/index.html for the list of classes with indexes
     private static final int CLASSNUM = 22;
-    private static final int DOG = 12;
-    private static final int PERSON = 15;
-    private static final int SHEEP = 17;
+    private static final int DOG = 14;
+    private static final int PERSON = 16;
+    private static final int SHEEP = 19;
 
     public static String assetFilePath(Context context, String assetName) throws IOException {
         File file = new File(context.getFilesDir(), assetName);
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements Runnable {
 
         try {
             mBitmap = BitmapFactory.decodeStream(getAssets().open(mImagename));
+            mBitmap = Bitmap.createScaledBitmap(mBitmap, 640, 480, true);
         } catch (IOException e) {
             Log.e("ImageSegmentation", "Error reading assets", e);
             finish();
@@ -78,13 +79,14 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         final Button buttonRestart = findViewById(R.id.restartButton);
         buttonRestart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mImagename = "test.jpg";
-                // if (mImagename == "deeplab.jpg")
-                //     mImagename = "dog.jpg";
-                // else
-                //     mImagename = "deeplab.jpg";
+//                if (mImagename == "deeplab.jpg")
+//                    mImagename = "dog.jpg";
+//                else
+//                    mImagename = "deeplab.jpg";
+                mImagename = "MP_SEL_SUR_001055.jpg";
                 try {
                     mBitmap = BitmapFactory.decodeStream(getAssets().open(mImagename));
+                    mBitmap = Bitmap.createScaledBitmap(mBitmap, 854, 480, false);
                     mImageView.setImageBitmap(mBitmap);
                 } catch (IOException e) {
                     Log.e("ImageSegmentation", "Error reading assets", e);
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         });
 
         try {
+//            mModule = LiteModuleLoader.load(MainActivity.assetFilePath(getApplicationContext(), "deeplabv3_scripted_optimized.ptl"));
             mModule = LiteModuleLoader.load(MainActivity.assetFilePath(getApplicationContext(), "deeplabv3_scripted_final_prj.ptl"));
         } catch (IOException e) {
             Log.e("ImageSegmentation", "Error reading assets", e);
@@ -122,11 +125,12 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         final float[] inputs = inputTensor.getDataAsFloatArray();
 
         final long startTime = SystemClock.elapsedRealtime();
-        Map<String, IValue> outTensors = mModule.forward(IValue.from(inputTensor)).toDictStringKey();
+//        Map<String, IValue> outTensors = mModule.forward(IValue.from(inputTensor)).toDictStringKey();
+        final IValue outTensors = mModule.forward(IValue.from(inputTensor));
         final long inferenceTime = SystemClock.elapsedRealtime() - startTime;
         Log.d("ImageSegmentation",  "inference time (ms): " + inferenceTime);
 
-        // final Tensor outputTensor = outTensors.get("out").toTensor();
+//        final Tensor outputTensor = outTensors.get("out").toTensor();
         final Tensor outputTensor = outTensors.toTensor();
         final float[] scores = outputTensor.getDataAsFloatArray();
         int width = mBitmap.getWidth();
@@ -143,11 +147,11 @@ public class MainActivity extends AppCompatActivity implements Runnable {
                         maxi = i; maxj = j; maxk = k;
                     }
                 }
-                if (maxi == PERSON)
+                if (maxi == 14)
                     intValues[maxj * width + maxk] = 0xFFFF0000;
-                else if (maxi == DOG)
+                else if (maxi == 16)
                     intValues[maxj * width + maxk] = 0xFF00FF00;
-                else if (maxi == SHEEP)
+                else if (maxi == 19)
                     intValues[maxj * width + maxk] = 0xFF0000FF;
                 else
                     intValues[maxj * width + maxk] = 0xFF000000;
@@ -171,4 +175,3 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         });
     }
 }
-
