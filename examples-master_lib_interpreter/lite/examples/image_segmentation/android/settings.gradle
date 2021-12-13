@@ -1,2 +1,3 @@
 rootProject.name = 'TFLite Image Segmentation Demo App'
 include ':app', ':lib_interpreter', ':lib_task_api', ':lib_utils'
+include ':sdk'

@@ -17,7 +17,9 @@
 package org.tensorflow.lite.examples.imagesegmentation.tflite
 
 import android.content.Context
+import android.content.res.AssetManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.SystemClock
 import android.util.Log
@@ -29,9 +31,17 @@ import java.nio.ByteOrder
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
 import kotlin.random.Random
-import org.tensorflow.lite.Interpreter
+import org.tensorflow.lite.gpu.CompatibilityList
 import org.tensorflow.lite.examples.imagesegmentation.utils.ImageUtils
 import org.tensorflow.lite.gpu.GpuDelegate
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
+import org.tensorflow.lite.nnapi.NnApiDelegate;
+import org.tensorflow.lite.Interpreter;
+import java.io.InputStream
 
 /**
  * Class responsible to run the Image Segmentation model. more information about the DeepLab model
@@ -55,26 +65,40 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   private var imageSegmentationTime = 0L
   private var maskFlatteningTime = 0L
 
-  private var numberThreads = 4
+  private var numberThreads = 8
+  private val matInput: Mat? = null
+  private val matResult: Mat? = null
 
+  private var _context:Context = context
   init {
 
     interpreter = getInterpreter(context, imageSegmentationModel, useGPU)
     //segmentationMasks = ByteBuffer.allocateDirect(1 * imageSize * imageSize * NUM_CLASSES * 4)
     segmentationMasks = ByteBuffer.allocateDirect(1 * width * height * NUM_CLASSES * 4)
     segmentationMasks.order(ByteOrder.nativeOrder())
+   // _context = context
   }
+
+
+  fun getBitmapFromAsset(filePath: String): Bitmap {
+    val assetManager: AssetManager = this._context.assets
+    var istr = assetManager.open(filePath)
+    var bitmap = BitmapFactory.decodeStream(istr)
+    return bitmap
+  }
+
 
   fun execute(data: Bitmap): ModelExecutionResult {
     try {
       fullTimeExecutionTime = SystemClock.uptimeMillis()
 
       preprocessTime = SystemClock.uptimeMillis()
-      //val scaledBitmap = ImageUtils.scaleBitmapAndKeepRatio(data, imageSize, imageSize)
-      //val scaledBitmap = ImageUtils.scaleBitmapAndKeepRatio(data, height, width)
+
+      //var test_image = getBitmapFromAsset( "test_images/수정됨_MP_SEL_SUR_000006.png")
+      //val scaledBitmap = ImageUtils.resizeBitmap(test_image, width, height)
+
       val scaledBitmap = ImageUtils.resizeBitmap(data, width, height)
       val contentArray =
-        //ImageUtils.bitmapToByteBuffer(scaledBitmap, imageSize, imageSize, IMAGE_MEAN, IMAGE_STD)
         ImageUtils.bitmapToByteBuffer(scaledBitmap, width, height, IMAGE_MEAN, IMAGE_STD)
       preprocessTime = SystemClock.uptimeMillis() - preprocessTime
 
@@ -87,8 +111,6 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       val (maskImageApplied, maskOnly, itemsFound) =
         convertBytebufferMaskToBitmap(
           segmentationMasks,
-//          imageSize,
-//          imageSize,
           width,
           height,
           scaledBitmap,
@@ -107,18 +129,10 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
         formatExecutionLog(),
         itemsFound
       )
-//      return ModelExecutionResult(
-//        ImageUtils.resizeBitmap(maskImageApplied,imageSize, imageSize),
-//        ImageUtils.resizeBitmap(scaledBitmap,imageSize, imageSize),
-//        ImageUtils.resizeBitmap(maskOnly,imageSize, imageSize),
-//        formatExecutionLog(),
-//        itemsFound
-//      )
     } catch (e: Exception) {
       val exceptionLog = "something went wrong: ${e.message}"
       Log.d(TAG, exceptionLog)
 
-      //val emptyBitmap = ImageUtils.createEmptyBitmap(imageSize, imageSize)
       val emptyBitmap = ImageUtils.createEmptyBitmap(width, height)
       return ModelExecutionResult(
         emptyBitmap,
@@ -155,8 +169,10 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
 
     gpuDelegate = null
     if (useGpu) {
-      gpuDelegate = GpuDelegate()
-      tfliteOptions.addDelegate(gpuDelegate)
+//      gpuDelegate = GpuDelegate()
+//      tfliteOptions.addDelegate(gpuDelegate)
+      var nnApiDelegate = NnApiDelegate()
+      tfliteOptions.addDelegate(nnApiDelegate)
     }
 
     return Interpreter(loadModelFile(context, modelName), tfliteOptions)
@@ -164,7 +180,6 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
 
   private fun formatExecutionLog(): String {
     val sb = StringBuilder()
-    //sb.append("Input Image Size: $imageSize x $imageSize\n")
     sb.append("Input Image Size: $width x $height\n")
     sb.append("GPU enabled: $useGPU\n")
     sb.append("Number of threads: $numberThreads\n")
@@ -182,6 +197,8 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
     }
   }
 
+
+
   private fun convertBytebufferMaskToBitmap(
     inputBuffer: ByteBuffer,
     imageWidth: Int,
@@ -193,19 +210,20 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
     val maskBitmap = Bitmap.createBitmap(imageWidth, imageHeight, conf)
     val resultBitmap = Bitmap.createBitmap(imageWidth, imageHeight, conf)
     val scaledBackgroundImage =
-      //ImageUtils.scaleBitmapAndKeepRatio(backgroundImage, imageWidth, imageHeight)
       ImageUtils.resizeBitmap(backgroundImage, imageWidth, imageHeight)
     val mSegmentBits = Array(imageWidth) { IntArray(imageHeight) }
     val itemsFound = HashMap<String, Int>()
     inputBuffer.rewind()
 
+    var nextClass = imageWidth * imageHeight
     for (y in 0 until imageHeight) {
       for (x in 0 until imageWidth) {
         var maxVal = 0f
         mSegmentBits[x][y] = 0
 
         for (c in 0 until NUM_CLASSES) {
-          val value = inputBuffer.getFloat((y * imageWidth * NUM_CLASSES + x * NUM_CLASSES + c) * 4)
+          //val value = inputBuffer.getFloat((y * imageWidth * NUM_CLASSES + x * NUM_CLASSES + c) * 4)
+          val value = inputBuffer.getFloat((y * imageWidth + c * nextClass + x ) * 4)
           if (c == 0 || value > maxVal) {
             maxVal = value
             mSegmentBits[x][y] = c
