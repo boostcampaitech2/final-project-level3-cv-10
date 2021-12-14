@@ -84,7 +84,7 @@ def main(args):
     model = deeplabv3_mobilenet_v3_large(pretrained=False,
                                          pretrained_backbone=False,
                                          aux_loss=False)
-    model.load_state_dict(torch.load('model_weights.pth'))
+    # model.load_state_dict(torch.load('model_weights.pth'))
     model.to(device)
     logger.info(f"Model progress. {time.perf_counter() - _time:.4f}s")
 
@@ -99,7 +99,7 @@ def main(args):
     N_EPOCH = args['epochs']
     valid_mIoU = 0
     for epoch in range(N_EPOCH):
-        logger.info(f"Epoch {epoch + 1:>2}/{N_EPOCH} ----------")
+        logger.info(f"Epoch {epoch + 1:>3}/{N_EPOCH} ----------")
         metric = train(
             epoch=epoch,
             model=model,
@@ -127,10 +127,12 @@ def main(args):
             **train_IoU,
             **valid_IoU,
         })
+        if epoch % 10 == 0 and epoch != 0:
+            torch.save(model.state_dict(), f'model_weights.{epoch}.pth')
     #     nni.report_intermediate_result(valid_mIoU)
     # nni.report_final_result(valid_mIoU)
 
-    torch.save(model.state_dict(), 'model_weights.after15.pth')
+    torch.save(model.state_dict(), 'model_weights.final.pth')
 
     return valid_mIoU / N_EPOCH
 
@@ -144,7 +146,7 @@ if __name__ == "__main__":
     # device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     # params = nni.get_next_parameter()
-    params = dict(epochs=30, lr=5e-5, batch_size=32, fp16=True)
+    params = dict(epochs=150, lr=5e-5, batch_size=32, fp16=True)
     main(params)
 
     # api = wandb.Api()

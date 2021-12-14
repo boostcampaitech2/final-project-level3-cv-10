@@ -52,23 +52,31 @@ def get_valid_transform():
 @timer
 class CustomDataset(Dataset):
     """COCO format"""
-    def __init__(self, data_json, mode='train', transforms=None):
+    def __init__(
+        self,
+        data_json,
+        mode='train',
+        transforms=None,
+        image_root_path: str = '/opt/ml/data/final-project/images',
+        # image_root_path: str = '/opt/ml/data/final-project/train_images',
+    ):
         super().__init__()
         self.mode = mode
         self.transforms = transforms
         self.coco = COCO(data_json)
         self.cocoImgIds = self.coco.getImgIds()
+        self.image_root_path = image_root_path
 
     def __getitem__(
-            self,
-            index: int,
-            image_root_path: str = '/opt/ml/data/final-project/images'):
+        self,
+        index: int,
+    ):
         # dataset이 index되어 list처럼 동작
         image_infos = self.coco.loadImgs(self.cocoImgIds[index])[0]
 
         # cv2 를 활용하여 image 불러오기
         images = cv2.imread(
-            os.path.join(image_root_path, image_infos['file_name']))
+            os.path.join(self.image_root_path, image_infos['file_name']))
         images = cv2.cvtColor(images, cv2.COLOR_BGR2RGB).astype(np.float32)
         # images /= 255.0
 
