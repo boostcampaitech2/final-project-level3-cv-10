@@ -2,7 +2,7 @@
 # You can use "nnictl create --config config_detailed.yml" to launch this experiment.
 # If you see an error message saying "port 8080 is used", use "nnictl stop --all" to stop previous experiments.
 
-experimentName: final_proj_01           # An optional name to help you distinguish experiments.
+experimentName: final_proj_03           # An optional name to help you distinguish experiments.
 
 # Hyper-parameter search space can either be configured here or in a seperate file.
 # "config.yml" shows how to specify a seperate search space file.
@@ -14,18 +14,18 @@ searchSpace:
     _value: [32]
   lr:
     _type: choice
-    _value: [0.00005, 0.0001, 0.0005, 0.001, 0.005]
+    _value: [0.0001, 0.00005]
   epochs:
     _type: choice
-    _value: [15]
+    _value: [150]
 
 trialCommand: python3 run.py    # The command to launch a trial. NOTE: change "python3" to "python" if you are using Windows.
 trialCodeDirectory: .           # The path of trial code. By default it's ".", which means the same directory of this config file.
 trialGpuNumber: 1               # How many GPUs should each trial use. CUDA is required when it's greater than zero.
 
 trialConcurrency: 2             # Run 4 trials concurrently.
-maxTrialNumber: 20              # Generate at most 10 trials.
-maxExperimentDuration: 24h       # Stop generating trials after 1 hour.
+maxTrialNumber: 2              # Generate at most 10 trials.
+maxExperimentDuration: 3h       # Stop generating trials after 1 hour.
 
 tuner:                          # Configure the tuning algorithm.
   name: TPE                     # Supported algorithms: TPE, Random, Anneal, Evolution, GridSearch, GPTuner, PBTTuner, etc.

@@ -6,7 +6,9 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from torchvision.models import mobilenetv3
+# from torchvision.models import mobilenetv3
+import models.mobilenetv3 as mobilenetv3
+import models.quantization_mobilenetv3 as quantization_mobilenetv3
 from torchvision.models.feature_extraction import create_feature_extractor
 from torchvision.models.segmentation.fcn import FCNHead
 
@@ -162,7 +164,8 @@ class DeepLabV3(nn.Module):
 
 def deeplabv3_mobilenet_v3_large(
     pretrained: bool = False,
-    progress: bool = True,
+    # progress: bool = True,
+    quantize: bool = False,
     num_classes: int = 22,
     aux_loss: Optional[bool] = None,
     pretrained_backbone: bool = True,
@@ -176,32 +179,16 @@ def deeplabv3_mobilenet_v3_large(
         aux_loss (bool, optional): If True, it uses an auxiliary loss
         pretrained_backbone (bool): If True, the backbone will be pre-trained.
     """
-    if pretrained:
-        aux_loss = True
-        pretrained_backbone = False
+    # if pretrained:
+    #     aux_loss = True
+    #     pretrained_backbone = False
+    if quantize:
+        backbone = quantization_mobilenetv3.mobilenet_v3_large(
+            pretrained=False, dilated=False)
+    else:
+        backbone = mobilenetv3.mobilenet_v3_large(pretrained=False,
+                                                  dilated=False)
 
-    backbone = mobilenetv3.mobilenet_v3_large(pretrained=pretrained_backbone,
-                                              dilated=True)
-    model = _deeplabv3_mobilenetv3(backbone, num_classes, aux_loss)
-
-    if pretrained:
-        model.load_state_dict(
-            torch.load(
-                '/opt/ml/.cache/torch/hub/checkpoints/deeplabv3_mobilenet_v3_large-fc3c493d.pth'
-            ))
-        # arch = "deeplabv3_mobilenet_v3_large_coco"
-        # _load_weights(
-        #     arch, model,
-        #     "https://download.pytorch.org/models/deeplabv3_mobilenet_v3_large-fc3c493d.pth",
-        #     progress)
-    return model
-
-
-def _deeplabv3_mobilenetv3(
-    backbone: mobilenetv3.MobileNetV3,
-    num_classes: int,
-    aux: Optional[bool],
-) -> DeepLabV3:
     backbone = backbone.features
     # Gather the indices of blocks which are strided. These are the locations of C1, ..., Cn-1 blocks.
     # The first and last blocks are always included because they are the C0 (conv1) and Cn.
@@ -213,10 +200,10 @@ def _deeplabv3_mobilenetv3(
     aux_pos = stage_indices[-4]  # use C2 here which has output_stride = 8
     aux_inplanes = backbone[aux_pos].out_channels
     return_layers = {str(out_pos): "out"}
-    if aux:
+    if aux_loss:
         return_layers[str(aux_pos)] = "aux"
     backbone = create_feature_extractor(backbone, return_layers)
 
-    aux_classifier = FCNHead(aux_inplanes, num_classes) if aux else None
+    aux_classifier = FCNHead(aux_inplanes, num_classes) if aux_loss else None
     classifier = DeepLabHead(out_inplanes, num_classes)
     return DeepLabV3(backbone, classifier, aux_classifier)

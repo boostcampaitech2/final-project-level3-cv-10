@@ -30,19 +30,23 @@ CLASSES = [
 
 def get_train_transform():
     return A.Compose([
-        A.Resize(480, 854),
-        A.RandomCrop(480, 640),
+        # A.Resize(360, 640),
+        # A.RandomCrop(360, 480),
+        A.Resize(240, 427),
+        A.RandomCrop(240, 320),
         A.HorizontalFlip(p=0.5),
+        A.Normalize(),
         ToTensorV2()
     ])
 
 
 def get_valid_transform():
-    return A.Compose([ToTensorV2(p=1.0)],
-                     bbox_params={
-                         'format': 'pascal_voc',
-                         'label_fields': ['labels']
-                     })
+    return A.Compose([
+        A.Resize(240, 427),
+        A.RandomCrop(240, 320),
+        A.Normalize(),
+        ToTensorV2()
+    ])
 
 
 @timer
@@ -58,7 +62,7 @@ class CustomDataset(Dataset):
     def __getitem__(
             self,
             index: int,
-            image_root_path: str = '/opt/ml/data/final-project/train_images'):
+            image_root_path: str = '/opt/ml/data/final-project/images'):
         # dataset이 index되어 list처럼 동작
         image_infos = self.coco.loadImgs(self.cocoImgIds[index])[0]
 
@@ -66,7 +70,7 @@ class CustomDataset(Dataset):
         images = cv2.imread(
             os.path.join(image_root_path, image_infos['file_name']))
         images = cv2.cvtColor(images, cv2.COLOR_BGR2RGB).astype(np.float32)
-        images /= 255.0
+        # images /= 255.0
 
         if (self.mode in ('train', 'val')):
             ann_ids = self.coco.getAnnIds(imgIds=image_infos['id'])

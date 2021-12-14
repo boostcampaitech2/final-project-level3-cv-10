@@ -60,7 +60,8 @@ def train(
             _time = time.perf_counter()
             with torch.set_grad_enabled(phase == 'train'), autocast(
                     enabled=autocast_enabled):
-                outputs = model.forward(images)['out']
+                # outputs = model.forward(images)['out']
+                outputs = model.forward(images)
 
                 # pdb.set_trace()
                 loss = criterion(outputs, masks)
@@ -81,7 +82,6 @@ def train(
             masks = masks.cpu().numpy()
             # outputs = outputs.detach().cpu().numpy()
             outputs = torch.argmax(outputs, dim=1).detach().cpu().numpy()
-
             hist = add_hist(hist, masks, outputs, n_class=22)
             hist_time += time.perf_counter() - _time
 
@@ -97,7 +97,12 @@ def train(
             f"{phase.upper():5} TIME: Cost - {cost_time:.2f}s, Hist - {hist_time:.2f}s, Eval - {eval_time:.2f}s"
         )
 
-        metric[phase] = dict(loss=loss, mIoU=mIoU)
+        metric[phase] = dict(loss=loss,
+                             mIoU=mIoU,
+                             IoU={
+                                 f"{phase}/{class_name}": round(IoU, 4)
+                                 for class_name, IoU in zip(CLASSES, IoU)
+                             })
 
     return metric
 
