@@ -168,7 +168,7 @@ def deeplabv3_mobilenet_v3_large(
     quantize: bool = False,
     num_classes: int = 22,
     aux_loss: Optional[bool] = None,
-    pretrained_backbone: bool = True,
+    pretrained_backbone: bool = False,
 ) -> DeepLabV3:
     """Constructs a DeepLabV3 model with a MobileNetV3-Large backbone.
     Args:
@@ -184,9 +184,9 @@ def deeplabv3_mobilenet_v3_large(
     #     pretrained_backbone = False
     if quantize:
         backbone = quantization_mobilenetv3.mobilenet_v3_large(
-            pretrained=False, dilated=False)
+            pretrained=pretrained_backbone, dilated=False)
     else:
-        backbone = mobilenetv3.mobilenet_v3_large(pretrained=False,
+        backbone = mobilenetv3.mobilenet_v3_large(pretrained=pretrained_backbone,
                                                   dilated=False)
 
     backbone = backbone.features

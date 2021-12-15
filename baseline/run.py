@@ -82,8 +82,8 @@ def main(args):
 
     _time = time.perf_counter()
     model = deeplabv3_mobilenet_v3_large(pretrained=False,
-                                         pretrained_backbone=False,
-                                         aux_loss=False)
+                                         pretrained_backbone=True,
+                                         aux_loss=True)
     # model.load_state_dict(torch.load('model_weights.pth'))
     model.to(device)
     logger.info(f"Model progress. {time.perf_counter() - _time:.4f}s")
@@ -110,29 +110,34 @@ def main(args):
             # scheduler=scheduler,
             train_process=TRAIN_PROCESS,
             autocast_enabled=args['fp16'],
+            aux=True,
         )
         valid_mIoU = metric['val']['mIoU']
         valid_IoU = metric['val']['IoU']
         valid_loss = metric['val']['loss']
+        valid_aux_loss = metric['val']['aux_loss']
 
         train_mIoU = metric['train']['mIoU']
         train_IoU = metric['train']['IoU']
         train_loss = metric['train']['loss']
+        train_aux_loss = metric['train']['aux_loss']
 
         wandb.log({
             "train/loss": train_loss,
+            "train/aux_loss": train_aux_loss,
             "train/mIoU": train_mIoU,
             "val/loss": valid_loss,
+            "val/aux_loss": valid_aux_loss,
             "val/mIoU": valid_mIoU,
             **train_IoU,
             **valid_IoU,
         })
-        if epoch % 10 == 0 and epoch != 0:
-            torch.save(model.state_dict(), f'model_weights.{epoch}.pth')
+        if epoch % 10 == 0:
+            torch.save(model.state_dict(), f'model_weights_aux.ptbb.{epoch}.pth')
     #     nni.report_intermediate_result(valid_mIoU)
     # nni.report_final_result(valid_mIoU)
 
-    torch.save(model.state_dict(), 'model_weights.final.pth')
+    torch.save(model.state_dict(), 'model_weights_aux.ptbb.final.pth')
 
     return valid_mIoU / N_EPOCH
 

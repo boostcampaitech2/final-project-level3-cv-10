@@ -29,6 +29,7 @@ def train(
     # epoch_div=5,
     train_process: list = ['train', 'val'],
     autocast_enabled: bool = False,
+    aux: bool = False,
 ):
 
     if autocast_enabled:
@@ -48,6 +49,9 @@ def train(
         cost_time = 0
         eval_time = 0
         hist_time = 0
+        total_loss = 0
+        total_aux_loss = 0
+        total_out_loss = 0
 
         hist = np.zeros((22, 22))
         for images, masks, image_infos in tqdm(dataloaders[phase]):
@@ -60,11 +64,19 @@ def train(
             _time = time.perf_counter()
             with torch.set_grad_enabled(phase == 'train'), autocast(
                     enabled=autocast_enabled):
-                # outputs = model.forward(images)['out']
                 outputs = model.forward(images)
+                if aux:
+                    aux_outputs = outputs['aux']
+                    outputs = outputs['out']
 
-                # pdb.set_trace()
-                loss = criterion(outputs, masks)
+                    aux_loss = criterion(aux_outputs, masks)
+                    out_loss = criterion(outputs, masks)
+                    loss = out_loss + aux_loss
+                    total_aux_loss += aux_loss.cpu().item()
+                    total_out_loss += out_loss.cpu().item()
+                else:
+                    loss = criterion(outputs, masks)
+
 
                 if phase == 'train':
                     if not autocast_enabled:
@@ -75,7 +87,8 @@ def train(
                         scaler.step(optimizer)
                         scaler.update()
 
-            loss = loss.cpu().item()
+            total_loss += loss.cpu().item()
+
             cost_time += time.perf_counter() - _time
 
             _time = time.perf_counter()
@@ -86,10 +99,11 @@ def train(
             hist_time += time.perf_counter() - _time
 
         #
+        total_loss /= n_iter
         _time = time.perf_counter()
         acc, acc_cls, mIoU, fwavacc, IoU = label_accuracy_score(hist)
         logger.info(
-            f"{phase.upper():5}: Epoch [{epoch+1}], Loss: {round(loss, 4)}, mIoU: {round(mIoU, 4)}"
+            f"{phase.upper():5}: Epoch [{epoch+1}], Loss: {round(total_loss, 4)}, mIoU: {round(mIoU, 4)}"
         )
         print_metric(IoU)
         eval_time += time.perf_counter() - _time
@@ -97,12 +111,24 @@ def train(
             f"{phase.upper():5} TIME: Cost - {cost_time:.2f}s, Hist - {hist_time:.2f}s, Eval - {eval_time:.2f}s"
         )
 
-        metric[phase] = dict(loss=loss,
-                             mIoU=mIoU,
-                             IoU={
-                                 f"{phase}/{class_name}": round(IoU, 4)
-                                 for class_name, IoU in zip(CLASSES, IoU)
-                             })
+        if aux:
+            total_aux_loss /= n_iter
+            total_out_loss /= n_iter
+            metric[phase] = dict(loss=total_loss,
+                                 out_loss=total_out_loss,
+                                 aux_loss=total_aux_loss,
+                                 mIoU=mIoU,
+                                 IoU={
+                                     f"{phase}/{class_name}": round(IoU, 4)
+                                     for class_name, IoU in zip(CLASSES, IoU)
+                                 })
+        else:
+            metric[phase] = dict(loss=total_loss,
+                                 mIoU=mIoU,
+                                 IoU={
+                                     f"{phase}/{class_name}": round(IoU, 4)
+                                     for class_name, IoU in zip(CLASSES, IoU)
+                                 })
 
     return metric
 

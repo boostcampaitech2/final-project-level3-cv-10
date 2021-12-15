@@ -182,13 +182,13 @@ class MobileNetV3(nn.Module):
                                activation_layer=nn.Hardswish))
 
         self.features = nn.Sequential(*layers)
-        # self.avgpool = nn.AdaptiveAvgPool2d(1)
-        # self.classifier = nn.Sequential(
-        #     nn.Linear(lastconv_output_channels, last_channel),
-        #     nn.Hardswish(inplace=True),
-        #     nn.Dropout(p=0.2, inplace=True),
-        #     nn.Linear(last_channel, num_classes),
-        # )
+        self.avgpool = nn.AdaptiveAvgPool2d(1)
+        self.classifier = nn.Sequential(
+            nn.Linear(lastconv_output_channels, last_channel),
+            nn.Hardswish(inplace=True),
+            nn.Dropout(p=0.2, inplace=True),
+            nn.Linear(last_channel, num_classes),
+        )
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
