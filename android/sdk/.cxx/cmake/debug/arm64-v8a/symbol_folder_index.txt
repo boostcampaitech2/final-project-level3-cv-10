@@ -1,0 +1,1 @@
+C:\Users\sb933\GIT\final_project\examples-master_lib_interpreter\lite\examples\image_segmentation\android\sdk\build\intermediates\cmake\debug\obj\arm64-v8a
