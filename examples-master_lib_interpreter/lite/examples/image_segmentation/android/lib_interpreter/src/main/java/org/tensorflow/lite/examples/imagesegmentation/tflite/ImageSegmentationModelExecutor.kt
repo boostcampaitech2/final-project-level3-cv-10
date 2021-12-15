@@ -94,10 +94,10 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
 
       preprocessTime = SystemClock.uptimeMillis()
 
-      //var test_image = getBitmapFromAsset( "test_images/수정됨_MP_SEL_SUR_000006.png")
-      //val scaledBitmap = ImageUtils.resizeBitmap(test_image, width, height)
+      var test_image = getBitmapFromAsset( "test_images/수정됨_MP_SEL_SUR_000004.png")
+      val scaledBitmap = ImageUtils.resizeBitmap(test_image, width, height)
 
-      val scaledBitmap = ImageUtils.resizeBitmap(data, width, height)
+      //val scaledBitmap = ImageUtils.resizeBitmap(data, width, height)
       val contentArray =
         ImageUtils.bitmapToByteBuffer(scaledBitmap, width, height, IMAGE_MEAN, IMAGE_STD)
       preprocessTime = SystemClock.uptimeMillis() - preprocessTime
@@ -251,11 +251,13 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
     //private const val imageSegmentationModel = "deeplabv3_257_mv_gpu.tflite"
     private const val imageSegmentationModel = "tflite.tflite"
     private const val imageSize = 257
-    private const val width = 640
-    private const val height = 480
+    //private const val width = 640
+    //private const val height = 480
+    private const val width = 320
+    private const val height = 240
     const val NUM_CLASSES = 22
     private const val IMAGE_MEAN = 127.5f
-    private const val IMAGE_STD = 127.5f
+    private const val IMAGE_STD = 255.0f
 
     val segmentColors = IntArray(NUM_CLASSES)
     val labelsArrays =
