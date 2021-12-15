@@ -1,0 +1,3 @@
+C:/Users/sb933/GIT/final_project/examples-master_lib_interpreter/lite/examples/image_segmentation/android/sdk/.cxx/cmake/debug/arm64-v8a/CMakeFiles/opencv_jni_shared.dir
+C:/Users/sb933/GIT/final_project/examples-master_lib_interpreter/lite/examples/image_segmentation/android/sdk/.cxx/cmake/debug/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/sb933/GIT/final_project/examples-master_lib_interpreter/lite/examples/image_segmentation/android/sdk/.cxx/cmake/debug/arm64-v8a/CMakeFiles/rebuild_cache.dir

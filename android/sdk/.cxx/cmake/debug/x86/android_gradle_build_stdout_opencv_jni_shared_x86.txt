@@ -1,0 +1,2 @@
+ninja: Entering directory `C:\Users\sb933\GIT\final_project\examples-master_lib_interpreter\lite\examples\image_segmentation\android\sdk\.cxx\cmake\debug\x86'
+ninja: no work to do.
