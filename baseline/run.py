@@ -92,6 +92,10 @@ def main(args):
         model.parameters(),
         lr=args['lr'],
     )
+    # optimizer = optim.SGD(
+    #     model.parameters(),
+    #     lr=args['lr'],
+    # )
 
     loss_func = nn.CrossEntropyLoss()
 
@@ -133,11 +137,12 @@ def main(args):
             **valid_IoU,
         })
         if epoch % 10 == 0:
-            torch.save(model.state_dict(), f'model_weights_aux.ptbb.{epoch}.pth')
+            torch.save(model.state_dict(),
+                       f'model_weights_aux.ptbb_adamw.{epoch}.pth')
     #     nni.report_intermediate_result(valid_mIoU)
     # nni.report_final_result(valid_mIoU)
 
-    torch.save(model.state_dict(), 'model_weights_aux.ptbb.final.pth')
+    torch.save(model.state_dict(), 'model_weights_aux.ptbb_adamw.final.pth')
 
     return valid_mIoU / N_EPOCH
 
@@ -151,7 +156,7 @@ if __name__ == "__main__":
     # device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     # params = nni.get_next_parameter()
-    params = dict(epochs=150, lr=5e-5, batch_size=32, fp16=True)
+    params = dict(epochs=150, lr=3e-5, batch_size=32, fp16=True)
     main(params)
 
     # api = wandb.Api()
