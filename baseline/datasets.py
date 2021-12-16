@@ -31,20 +31,24 @@ CLASSES = [
 def get_train_transform():
     return A.Compose([
         # A.Resize(360, 640),
-        # A.RandomCrop(360, 480),
-        A.Resize(240, 427),
-        A.RandomCrop(240, 320),
+        A.RandomCrop(360, 480),
+        # A.Resize(240, 427),
+        # A.RandomCrop(240, 320),
         A.HorizontalFlip(p=0.5),
-        A.Normalize(),
+        A.RandomContrast(p=0.3),
+        A.GaussNoise(p=0.3),
+        A.Blur(blur_limit=4, p=0.2),
+        # A.Normalize(),
         ToTensorV2()
     ])
 
 
 def get_valid_transform():
     return A.Compose([
-        A.Resize(240, 427),
-        A.RandomCrop(240, 320),
-        A.Normalize(),
+        # A.Resize(240, 427),
+        # A.RandomCrop(240, 320),
+        A.RandomCrop(360, 480),
+        # A.Normalize(),
         ToTensorV2()
     ])
 
@@ -78,7 +82,7 @@ class CustomDataset(Dataset):
         images = cv2.imread(
             os.path.join(self.image_root_path, image_infos['file_name']))
         images = cv2.cvtColor(images, cv2.COLOR_BGR2RGB).astype(np.float32)
-        # images /= 255.0
+        images /= 255.0
 
         if (self.mode in ('train', 'val')):
             ann_ids = self.coco.getAnnIds(imgIds=image_infos['id'])
