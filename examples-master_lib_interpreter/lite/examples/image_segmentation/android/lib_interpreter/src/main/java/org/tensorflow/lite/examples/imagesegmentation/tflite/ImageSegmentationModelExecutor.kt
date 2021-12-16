@@ -24,6 +24,7 @@ import android.graphics.Color
 import android.os.SystemClock
 import android.util.Log
 import androidx.core.graphics.ColorUtils
+import org.opencv.android.*
 import java.io.FileInputStream
 import java.io.IOException
 import java.nio.ByteBuffer
@@ -34,14 +35,15 @@ import kotlin.random.Random
 import org.tensorflow.lite.gpu.CompatibilityList
 import org.tensorflow.lite.examples.imagesegmentation.utils.ImageUtils
 import org.tensorflow.lite.gpu.GpuDelegate
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 import org.tensorflow.lite.nnapi.NnApiDelegate;
 import org.tensorflow.lite.Interpreter;
 import java.io.InputStream
+import org.opencv.android.Utils;
+import org.opencv.core.Core
+import org.opencv.core.CvType
+import org.opencv.core.times
+import org.opencv.imgcodecs.Imgcodecs
 
 /**
  * Class responsible to run the Image Segmentation model. more information about the DeepLab model
