@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TFLite_Image_Segmentation_Demo_App.iml" filepath="$PROJECT_DIR$/.idea/modules/TFLite_Image_Segmentation_Demo_App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TFLite_Image_Segmentation_Demo_App.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TFLite_Image_Segmentation_Demo_App.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_interpreter/TFLite_Image_Segmentation_Demo_App.lib_interpreter.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_interpreter/TFLite_Image_Segmentation_Demo_App.lib_interpreter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_task_api/TFLite_Image_Segmentation_Demo_App.lib_task_api.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_task_api/TFLite_Image_Segmentation_Demo_App.lib_task_api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_utils/TFLite_Image_Segmentation_Demo_App.lib_utils.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_utils/TFLite_Image_Segmentation_Demo_App.lib_utils.iml" />
+    </modules>
+  </component>
+</project>
