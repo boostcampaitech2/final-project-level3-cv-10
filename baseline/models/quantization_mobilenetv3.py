@@ -13,7 +13,7 @@ from torch.quantization import QuantStub, DeQuantStub, fuse_modules
 from typing import Any, List, Optional
 # from .utils import _replace_relu
 from torchvision.models.quantization.utils import _replace_relu
-from utils import timer
+
 
 __all__ = ['QuantizableMobileNetV3', 'mobilenet_v3_large']
 

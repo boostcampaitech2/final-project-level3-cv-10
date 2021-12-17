@@ -25,7 +25,7 @@ def _load_weights(arch: str, model: nn.Module, model_url: Optional[str],
 class DeepLabHead(nn.Sequential):
     def __init__(self, in_channels: int, num_classes: int) -> None:
         super().__init__(
-            ASPP(in_channels, [12, 24, 36]),
+            ASPP(in_channels, [4, 8, 12]),
             nn.Conv2d(256, 256, 3, padding=1, bias=False),
             nn.BatchNorm2d(256),
             nn.ReLU(),
@@ -122,15 +122,19 @@ class DeepLabV3(nn.Module):
 
     __constants__ = ["aux_classifier"]
 
-    def __init__(self,
-                 backbone: nn.Module,
-                 classifier: nn.Module,
-                 aux_classifier: Optional[nn.Module] = None) -> None:
+    def __init__(
+        self,
+        backbone: nn.Module,
+        classifier: nn.Module,
+        aux_classifier: Optional[nn.Module] = None,
+        grid_mode: bool = False,
+    ) -> None:
         super().__init__()
         # _log_api_usage_once(self)
         self.backbone = backbone
         self.classifier = classifier
         self.aux_classifier = aux_classifier
+        self.grid_mode = grid_mode
 
     def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
         input_shape = x.shape[-2:]
@@ -139,10 +143,11 @@ class DeepLabV3(nn.Module):
 
         x = features["out"]
         x = self.classifier(x)
-        x = F.interpolate(x,
-                          size=input_shape,
-                          mode="bilinear",
-                          align_corners=False)
+        if not self.grid_mode:
+            x = F.interpolate(x,
+                              size=input_shape,
+                              mode="bilinear",
+                              align_corners=False)
 
         if self.aux_classifier is not None:
             result = OrderedDict()
@@ -162,13 +167,16 @@ class DeepLabV3(nn.Module):
         return result
 
 
-def deeplabv3_mobilenet_v3_large(
+def deeplabv3_mobilenet_v3(
     pretrained: bool = False,
     # progress: bool = True,
     quantize: bool = False,
+    small: bool = True,
     num_classes: int = 22,
     aux_loss: Optional[bool] = None,
     pretrained_backbone: bool = False,
+    reduced_tail: bool = False,
+    grid_mode: bool = False,
 ) -> DeepLabV3:
     """Constructs a DeepLabV3 model with a MobileNetV3-Large backbone.
     Args:
@@ -184,10 +192,18 @@ def deeplabv3_mobilenet_v3_large(
     #     pretrained_backbone = False
     if quantize:
         backbone = quantization_mobilenetv3.mobilenet_v3_large(
-            pretrained=pretrained_backbone, dilated=False)
+            pretrained=pretrained_backbone, dilated=True)
     else:
-        backbone = mobilenetv3.mobilenet_v3_large(pretrained=pretrained_backbone,
-                                                  dilated=False)
+        if small:
+            backbone = mobilenetv3.mobilenet_v3_small(
+                pretrained=pretrained_backbone,
+                dilated=True,
+                reduced_tail=reduced_tail)
+        else:
+            backbone = mobilenetv3.mobilenet_v3_large(
+                pretrained=pretrained_backbone,
+                dilated=True,
+                reduced_tail=reduced_tail)
 
     backbone = backbone.features
     # Gather the indices of blocks which are strided. These are the locations of C1, ..., Cn-1 blocks.
@@ -206,4 +222,4 @@ def deeplabv3_mobilenet_v3_large(
 
     aux_classifier = FCNHead(aux_inplanes, num_classes) if aux_loss else None
     classifier = DeepLabHead(out_inplanes, num_classes)
-    return DeepLabV3(backbone, classifier, aux_classifier)
+    return DeepLabV3(backbone, classifier, aux_classifier, grid_mode)

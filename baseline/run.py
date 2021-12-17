@@ -16,7 +16,7 @@ import wandb
 from torch.utils.data import DataLoader
 
 # Custom
-from models.deeplabv3 import deeplabv3_mobilenet_v3_large
+from models.deeplabv3 import deeplabv3_mobilenet_v3
 from train import train
 from datasets import CustomDataset
 from datasets import get_train_transform, get_valid_transform
@@ -81,9 +81,13 @@ def main(args):
     # pdb.set_trace()
 
     _time = time.perf_counter()
-    model = deeplabv3_mobilenet_v3_large(pretrained=False,
-                                         pretrained_backbone=True,
-                                         aux_loss=True)
+    model = deeplabv3_mobilenet_v3(
+        pretrained=False,
+        pretrained_backbone=True,
+        aux_loss=True,
+        small=False,
+        grid_mode=False,
+    )
     # model.load_state_dict(torch.load('model_weights.pth'))
     model.to(device)
     logger.info(f"Model progress. {time.perf_counter() - _time:.4f}s")
@@ -92,10 +96,6 @@ def main(args):
         model.parameters(),
         lr=args['lr'],
     )
-    # optimizer = optim.SGD(
-    #     model.parameters(),
-    #     lr=args['lr'],
-    # )
 
     loss_func = nn.CrossEntropyLoss()
 
@@ -138,11 +138,11 @@ def main(args):
         })
         if epoch % 10 == 0:
             torch.save(model.state_dict(),
-                       f'model_weights_aux.ptbb_adamw.{epoch}.pth')
+                       f'model_weights_aux2.ptbb_adamw.{epoch}.pth')
     #     nni.report_intermediate_result(valid_mIoU)
     # nni.report_final_result(valid_mIoU)
 
-    torch.save(model.state_dict(), 'model_weights_aux.ptbb_adamw.final.pth')
+    torch.save(model.state_dict(), 'model_weights_aux2.ptbb_adamw.final.pth')
 
     return valid_mIoU / N_EPOCH
 
