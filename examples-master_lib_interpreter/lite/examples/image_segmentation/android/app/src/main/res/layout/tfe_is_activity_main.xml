@@ -12,11 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/white">
-
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/tfl2_logo_dark" />
+            android:text="A Dream"
+            android:layout_gravity="left"
+            android:id="@+id/toolbar_title"
+            android:textSize="30sp"
+            />
+
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/tfl2_logo_dark" />-->
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -27,6 +35,9 @@
         android:gravity="center_horizontal"
         android:paddingTop="?attr/actionBarSize">
 
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,8 +48,14 @@
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:paddingTop="16dp" />
-        </LinearLayout>
 
+            <ImageView
+                android:id="@+id/grid_imageview"
+                android:layout_width="@dimen/tfe_is_preview_size"
+                android:layout_height="@dimen/tfe_is_preview_size"
+                android:padding="8dp" />
+        </LinearLayout>
+        </HorizontalScrollView>
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

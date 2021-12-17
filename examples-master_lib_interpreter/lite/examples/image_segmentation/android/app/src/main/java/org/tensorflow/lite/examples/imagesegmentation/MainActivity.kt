@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
   private lateinit var cameraFragment: CameraFragment
   private lateinit var viewModel: MLExecutionViewModel
   private lateinit var viewFinder: FrameLayout
+  private lateinit var gridImageView: ImageView
   private lateinit var resultImageView: ImageView
   private lateinit var originalImageView: ImageView
   private lateinit var maskImageView: ImageView
@@ -93,6 +94,7 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
     supportActionBar?.setDisplayShowTitleEnabled(false)
 
     viewFinder = findViewById(R.id.view_finder)
+    gridImageView = findViewById(R.id.grid_imageview)
     resultImageView = findViewById(R.id.result_imageview)
     originalImageView = findViewById(R.id.original_imageview)
     maskImageView = findViewById(R.id.mask_imageview)
@@ -200,6 +202,7 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
   }
 
   private fun updateUIWithResults(modelExecutionResult: ModelExecutionResult) {
+    setImageView(gridImageView, modelExecutionResult.gridResult)
     setImageView(resultImageView, modelExecutionResult.bitmapResult)
     setImageView(originalImageView, modelExecutionResult.bitmapOriginal)
     setImageView(maskImageView, modelExecutionResult.bitmapMaskOnly)

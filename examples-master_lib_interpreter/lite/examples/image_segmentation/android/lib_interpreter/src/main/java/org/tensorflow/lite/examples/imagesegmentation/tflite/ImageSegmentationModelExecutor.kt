@@ -71,6 +71,9 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   private val matInput: Mat? = null
   private val matResult: Mat? = null
 
+  private val gridWidth = 8
+  private val gridHeight = 6
+
   private var _context:Context = context
   init {
 
@@ -96,10 +99,10 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
 
       preprocessTime = SystemClock.uptimeMillis()
 
-      var test_image = getBitmapFromAsset( "test_images/수정됨_MP_SEL_SUR_000004.png")
-      val scaledBitmap = ImageUtils.resizeBitmap(test_image, width, height)
+      //var test_image = getBitmapFromAsset( "test_images/수정됨_MP_SEL_SUR_000004.png")
+      //val scaledBitmap = ImageUtils.resizeBitmap(test_image, width, height)
 
-      //val scaledBitmap = ImageUtils.resizeBitmap(data, width, height)
+      val scaledBitmap = ImageUtils.resizeBitmap(data, width, height)
       val contentArray =
         ImageUtils.bitmapToByteBuffer(scaledBitmap, width, height, IMAGE_MEAN, IMAGE_STD)
       preprocessTime = SystemClock.uptimeMillis() - preprocessTime
@@ -118,6 +121,11 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
           scaledBitmap,
           segmentColors
         )
+
+      val gridBitmap = ImageUtils.resizeBitmap(maskOnly, gridWidth, gridHeight, false)
+      //여기서 영상처리해서 UI에 표시
+
+
       maskFlatteningTime = SystemClock.uptimeMillis() - maskFlatteningTime
       Log.d(TAG, "Time to flatten the mask result $maskFlatteningTime")
 
@@ -125,6 +133,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       Log.d(TAG, "Total time execution $fullTimeExecutionTime")
 
       return ModelExecutionResult(
+        gridBitmap,
         maskImageApplied,
         scaledBitmap,
         maskOnly,
@@ -137,6 +146,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
 
       val emptyBitmap = ImageUtils.createEmptyBitmap(width, height)
       return ModelExecutionResult(
+        emptyBitmap,
         emptyBitmap,
         emptyBitmap,
         emptyBitmap,
