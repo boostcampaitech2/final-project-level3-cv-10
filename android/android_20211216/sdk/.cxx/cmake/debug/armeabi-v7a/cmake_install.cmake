@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/sb933/GIT/final_project/android/sdk/libcxx_helper
+# Install script for directory: C:/Users/sb933/GIT/final/android/android_20211216/sdk/libcxx_helper
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/sb933/GIT/final_project/android/sdk/.cxx/cmake/debug/armeabi-v7a/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/sb933/GIT/final/android/android_20211216/sdk/.cxx/cmake/debug/armeabi-v7a/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

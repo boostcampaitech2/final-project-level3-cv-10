@@ -1,33 +1,27 @@
 package org.tensorflow.lite.examples.imagesegmentation.tflite
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import java.nio.ByteBuffer
+import android.speech.*
+import android.speech.tts.TextToSpeech
+import org.w3c.dom.Text
+import java.util.*
 
+class whochari() {
+    //8 X
+    fun ttsSpeak(tts : TextToSpeech, str : String){
+        tts.speak(str, TextToSpeech.QUEUE_ADD, null, null)
+        tts.playSilentUtterance(1000, TextToSpeech.QUEUE_ADD, null)
+    }
 
-abstract class whochari {
-    companion object {
-        private fun buffer2patch(
-            maskBitmap: Bitmap,
-            width: Int,
-            height: Int,
-            widthRatio: Int,
-            heightRatio: Int
-        ) {
-            val arr: MutableList<ByteBuffer>
-            //4:3
-            val widthpatchlength: Int = width / widthRatio
-            val heightpatchlength: Int = height / heightRatio
-            for (z in 0 until widthRatio * heightRatio) {
-                val arr_element : ByteBuffer =
-                    ByteBuffer.allocateDirect(1 * widthpatchlength * heightpatchlength * ImageSegmentationModelExecutor.NUM_CLASSES * 4)
-                for (y in 0 until heightpatchlength) {
-                    for (x in 0 until widthpatchlength) {
-                    }
-                        var maxVal = 0f
-
-                    }
-                }
-            }
-        }
+    fun whochari(patch: Array<Array<String>>){
+        //TODO
+        // patch : 6X8형태의 class(string 형태의)
+        // 각 하나의 patch는 convertBytebufferMaskToBitmap함수의 standard X standard 픽셀의 최빈값
+        // ex [[alley, alley, alley, sidewalk, sidewalk, sidewalk],
+        //    [alley, alley, alley, sidewalk, sidewalk, sidewalk]...]]
+        
+    }
 }

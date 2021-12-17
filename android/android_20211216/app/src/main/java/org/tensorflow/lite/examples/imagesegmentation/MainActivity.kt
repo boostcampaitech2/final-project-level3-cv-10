@@ -22,8 +22,10 @@ import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.hardware.camera2.CameraCharacteristics
+import android.os.Build
 import android.os.Bundle
 import android.os.Process
+import android.speech.tts.TextToSpeech
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.util.Log
@@ -48,7 +50,10 @@ import java.util.concurrent.Executors
 import org.tensorflow.lite.examples.imagesegmentation.camera.CameraFragment
 import org.tensorflow.lite.examples.imagesegmentation.tflite.ImageSegmentationModelExecutor
 import org.tensorflow.lite.examples.imagesegmentation.tflite.ModelExecutionResult
+import org.tensorflow.lite.examples.imagesegmentation.tflite.whochari
 import java.lang.Long.max
+import java.util.*
+import kotlin.collections.HashMap
 
 
 // This is an arbitrary number we are using to keep tab of the permission
@@ -72,7 +77,8 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
   private lateinit var chipsGroup: ChipGroup
   private lateinit var rerunButton: Button
   private lateinit var captureButton: ImageButton
-
+  private var tts: TextToSpeech? = null
+  private var background : whochari = whochari()
   private var lastSavedFile = ""
   private var useGPU = false
 //  private var imageSegmentationModel: ImageSegmentationModelExecutor? = null
@@ -131,9 +137,9 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
         viewModel.onApplyModel(lastSavedFile, imageSegmentationModel, inferenceThread)
       }
     }
+    initTextToSpeech()
 
     animateCameraButton()
-
     setChipsToLogView(HashMap<String, Int>())
     setupControls(usetime)
     enableControls(true)
@@ -219,7 +225,11 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
       captureButton_flag = !captureButton_flag
       it.clearAnimation()
       if (captureButton_flag){
+        background.ttsSpeak(tts!!, "안내를 시작합니다")
         cameraFragment.takePicture(captureButton_flag)
+      }
+      else{
+        addCameraFragment()
       }
     }
 
@@ -252,6 +262,18 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
       } else {
         Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show()
         finish()
+      }
+    }
+  }
+
+
+  private fun initTextToSpeech(){
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+      return
+    }
+    tts = TextToSpeech(this){
+      if (it == TextToSpeech.SUCCESS){
+        val result = tts?.setLanguage(Locale.KOREAN)
       }
     }
   }

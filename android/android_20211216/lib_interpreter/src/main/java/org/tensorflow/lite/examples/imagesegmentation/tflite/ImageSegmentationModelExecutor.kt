@@ -108,7 +108,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       Log.d(TAG, "Time to run the model $imageSegmentationTime")
 
       maskFlatteningTime = SystemClock.uptimeMillis()
-      val (maskImageApplied, maskOnly, itemsFound) =
+      val (maskImageApplied, patch, itemsFound) =
         convertBytebufferMaskToBitmap(
           segmentationMasks,
           width,
@@ -116,6 +116,15 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
           scaledBitmap,
           segmentColors
         )
+      val standard : Int = 40
+      val patchbitmap = Bitmap.createBitmap(width / standard, height / standard, Bitmap.Config.ARGB_8888)
+      for (j in 0 until height / standard) {
+        for (i in 0 until width / standard) {
+          patchbitmap.setPixel(i, j, segmentColors[labelsArrays.indexOf(patch[i][j])])
+        }
+      }
+      val maskOnly = ImageUtils.resizeBitmap(patchbitmap, width, height)
+
       maskFlatteningTime = SystemClock.uptimeMillis() - maskFlatteningTime
       Log.d(TAG, "Time to flatten the mask result $maskFlatteningTime")
 
@@ -207,7 +216,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
     imageHeight: Int,
     backgroundImage: Bitmap,
     colors: IntArray
-  ): Triple<Bitmap, Bitmap, Map<String, Int>> {
+  ): Triple<Bitmap, Array<Array<String>>, Map<String, Int>> {
     val conf = Bitmap.Config.ARGB_8888
     val maskBitmap = Bitmap.createBitmap(imageWidth, imageHeight, conf)
     val resultBitmap = Bitmap.createBitmap(imageWidth, imageHeight, conf)
@@ -269,24 +278,17 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       //Log.d("i = ", "${i}")
       //Log.d("items is ", "${(arr_class[i].keys)}, ${arr_class[i].values} ${max_num}")
     }
-    val patchbitmap = Bitmap.createBitmap(imageWidth / standard, imageHeight / standard, conf)
-    for (j in 0 until imageHeight / standard) {
-      for (i in 0 until imageWidth / standard) {
-        patchbitmap.setPixel(i, j, colors[labelsArrays.indexOf(patchArr[i][j])])
-      }
-    }
-    val mask = ImageUtils.resizeBitmap(patchbitmap, imageWidth, imageHeight)
-    return Triple(resultBitmap, mask, itemsFound)
+    return Triple(resultBitmap, patchArr, itemsFound)
   }
 
   companion object {
 
     public const val TAG = "SegmentationInterpreter"
     //private const val imageSegmentationModel = "deeplabv3_257_mv_gpu.tflite"
-    private const val imageSegmentationModel = "mobilenetv3.tflite"
+    private const val imageSegmentationModel = "tflite.tflite"
     private const val imageSize = 257
-    private const val width = 640
-    private const val height = 480
+    private const val width = 320
+    private const val height = 240
     const val NUM_CLASSES = 22
     private const val IMAGE_MEAN = 127.5f
     private const val IMAGE_STD = 127.5f
