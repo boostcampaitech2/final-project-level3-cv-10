@@ -122,7 +122,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
         }
       }
       val maskOnly = ImageUtils.resizeBitmap(patchbitmap, width, height)
-      ttsclass.execute_TTS(patch)
+      ttsclass.executeTTS(patch)
       maskFlatteningTime = SystemClock.uptimeMillis() - maskFlatteningTime
       Log.d(TAG, "Time to flatten the mask result $maskFlatteningTime")
 
