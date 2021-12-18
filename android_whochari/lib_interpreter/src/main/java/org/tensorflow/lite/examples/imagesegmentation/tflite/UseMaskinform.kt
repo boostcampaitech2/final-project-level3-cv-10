@@ -24,7 +24,7 @@ class UseMaskinform(){
         return str
     }
     fun startTTS(){
-        this.TTScallback?.invoke("인퍼런스를 시작합니다.응애")
+        this.TTScallback?.invoke("안내를 시작합니다.")
     }
     fun stopTTS(){
         this.TTScallback?.invoke("안내를 중지합니다.")
