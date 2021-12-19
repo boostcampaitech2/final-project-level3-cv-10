@@ -190,15 +190,12 @@ abstract class ImageUtils {
       mean: Float = 0.0f,
       std: Float = 255.0f
     ): ByteBuffer {
-      //val bitmap = scaleBitmapAndKeepRatio(bitmapIn, width, height)
-      //val bitmap = resizeBitmap(bitmapIn, width, height)
       val inputImage = ByteBuffer.allocateDirect(1 * width * height * 3 * 4)
       inputImage.order(ByteOrder.nativeOrder())
       inputImage.rewind()
 
 
       val intValues = IntArray(width * height)
-      //bitmap.getPixels(intValues, 0, width, 0, 0, width, height)
       bitmapIn.getPixels(intValues, 0, width, 0, 0, width, height)
       var pixel = 0
       var gPos = width * height

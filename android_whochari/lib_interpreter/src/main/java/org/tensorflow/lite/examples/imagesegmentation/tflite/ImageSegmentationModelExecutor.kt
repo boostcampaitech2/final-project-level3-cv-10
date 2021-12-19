@@ -264,7 +264,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
     private const val height = 240
     const val NUM_CLASSES = 22
     private const val IMAGE_MEAN = 127.5f
-    private const val IMAGE_STD = 127.5f
+    private const val IMAGE_STD = 255.0f
     private const val output_width = 20
     private const val output_height = 15
     val segmentColors = IntArray(NUM_CLASSES)
