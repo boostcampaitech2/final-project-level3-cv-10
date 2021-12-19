@@ -64,7 +64,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   private var preprocessTime = 0L
   private var imageSegmentationTime = 0L
   private var maskFlatteningTime = 0L
-
+  private var statusLog : String = ""
   private var numberThreads = 8
   private val matInput: Mat? = null
   private val matResult: Mat? = null
@@ -123,7 +123,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       }
       val gridBitmap = ImageUtils.resizeBitmap(patchbitmap, width, height, false)
       val maskOnly = ImageUtils.resizeBitmap(patchbitmap, width, height)
-      ttsclass.executeTTS(patch)
+      statusLog = ttsclass.executeTTS(patch)
 
 
       maskFlatteningTime = SystemClock.uptimeMillis() - maskFlatteningTime
@@ -206,6 +206,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
     sb.append("Model execution time: $imageSegmentationTime ms\n")
     sb.append("Mask flatten time: $maskFlatteningTime ms\n")
     sb.append("Full execution time: $fullTimeExecutionTime ms\n")
+    sb.append(statusLog)
     return sb.toString()
   }
 

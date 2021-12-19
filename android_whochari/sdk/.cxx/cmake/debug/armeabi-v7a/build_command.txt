@@ -1,22 +1,22 @@
-                    Executable : C:\Users\16p\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\cmake.exe
+                    Executable : C:\Users\sb933\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\cmake.exe
 arguments : 
--HD:\AI_BoostCamp_Naver\Task\Final\Git\android_whochari\sdk\libcxx_helper
--DCMAKE_FIND_ROOT_PATH=D:\AI_BoostCamp_Naver\Task\Final\Git\android_whochari\sdk\.cxx\cmake\debug\prefab\armeabi-v7a\prefab
+-HC:\Users\sb933\GIT\final_pr\android_whochari\sdk\libcxx_helper
+-DCMAKE_FIND_ROOT_PATH=C:\Users\sb933\GIT\final_pr\android_whochari\sdk\.cxx\cmake\debug\prefab\armeabi-v7a\prefab
 -DCMAKE_BUILD_TYPE=Debug
--DCMAKE_TOOLCHAIN_FILE=C:\Users\16p\AppData\Local\Android\Sdk\ndk\21.4.7075529\build\cmake\android.toolchain.cmake
+-DCMAKE_TOOLCHAIN_FILE=C:\Users\sb933\AppData\Local\Android\Sdk\ndk\21.4.7075529\build\cmake\android.toolchain.cmake
 -DANDROID_ABI=armeabi-v7a
--DANDROID_NDK=C:\Users\16p\AppData\Local\Android\Sdk\ndk\21.4.7075529
+-DANDROID_NDK=C:\Users\sb933\AppData\Local\Android\Sdk\ndk\21.4.7075529
 -DANDROID_PLATFORM=android-21
 -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a
--DCMAKE_ANDROID_NDK=C:\Users\16p\AppData\Local\Android\Sdk\ndk\21.4.7075529
+-DCMAKE_ANDROID_NDK=C:\Users\sb933\AppData\Local\Android\Sdk\ndk\21.4.7075529
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=D:\AI_BoostCamp_Naver\Task\Final\Git\android_whochari\sdk\build\intermediates\cmake\debug\obj\armeabi-v7a
--DCMAKE_RUNTIME_OUTPUT_DIRECTORY=D:\AI_BoostCamp_Naver\Task\Final\Git\android_whochari\sdk\build\intermediates\cmake\debug\obj\armeabi-v7a
--DCMAKE_MAKE_PROGRAM=C:\Users\16p\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\Users\sb933\GIT\final_pr\android_whochari\sdk\build\intermediates\cmake\debug\obj\armeabi-v7a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=C:\Users\sb933\GIT\final_pr\android_whochari\sdk\build\intermediates\cmake\debug\obj\armeabi-v7a
+-DCMAKE_MAKE_PROGRAM=C:\Users\sb933\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_SYSTEM_VERSION=21
 -DANDROID_STL=c++_shared
--BD:\AI_BoostCamp_Naver\Task\Final\Git\android_whochari\sdk\.cxx\cmake\debug\armeabi-v7a
+-BC:\Users\sb933\GIT\final_pr\android_whochari\sdk\.cxx\cmake\debug\armeabi-v7a
 -GNinja
 jvmArgs : 
 

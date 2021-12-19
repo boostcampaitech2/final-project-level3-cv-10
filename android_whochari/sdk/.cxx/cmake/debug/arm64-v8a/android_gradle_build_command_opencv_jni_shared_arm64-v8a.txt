@@ -1,7 +1,7 @@
-Executable : C:\Users\16p\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
+Executable : C:\Users\sb933\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
 arguments : 
 -C
-D:\AI_BoostCamp_Naver\Task\Final\Git\android_whochari\sdk\.cxx\cmake\debug\arm64-v8a
+C:\Users\sb933\GIT\final_pr\android_whochari\sdk\.cxx\cmake\debug\arm64-v8a
 opencv_jni_shared
 jvmArgs : 
 

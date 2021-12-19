@@ -1,1 +1,1 @@
-D:\AI_BoostCamp_Naver\Task\Final\Git\android_whochari\sdk\libcxx_helper\CMakeLists.txt
+C:\Users\sb933\GIT\final_pr\android_whochari\sdk\libcxx_helper\CMakeLists.txt
