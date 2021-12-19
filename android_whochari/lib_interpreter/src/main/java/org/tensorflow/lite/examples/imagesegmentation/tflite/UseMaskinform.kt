@@ -96,6 +96,10 @@ class UseMaskinform(){
         //dict search(max)
         for ((k, v) in tempMap){
             //Log.d("map is ", "$k, $v")
+            if (k == "braille" && v > 10){
+                maxKey = k
+                break
+            }
             if (v > maxCnt){
                 maxKey = k
                 maxCnt = v
