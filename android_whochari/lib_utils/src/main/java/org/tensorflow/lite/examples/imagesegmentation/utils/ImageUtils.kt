@@ -121,7 +121,7 @@ abstract class ImageUtils {
       )
     }
 
-    fun resizeBitmap(bitmap:Bitmap, width:Int, height:Int):Bitmap{
+    fun resizeBitmap(bitmap:Bitmap, width:Int, height:Int, filter:Boolean=true):Bitmap{
       /*
           *** reference source developer.android.com ***
           Bitmap createScaledBitmap (Bitmap src, int dstWidth, int dstHeight, boolean filter)
@@ -147,7 +147,7 @@ abstract class ImageUtils {
         bitmap,
         width,
         height,
-        true
+        filter
       )
     }
 

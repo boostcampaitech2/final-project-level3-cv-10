@@ -121,6 +121,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
           patchbitmap.setPixel(i, j, segmentColors[patch[i][j]])
         }
       }
+      val gridBitmap = ImageUtils.resizeBitmap(patchbitmap, width, height, false)
       val maskOnly = ImageUtils.resizeBitmap(patchbitmap, width, height)
       ttsclass.executeTTS(patch)
 
@@ -132,7 +133,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       Log.d(TAG, "Total time execution $fullTimeExecutionTime")
 
       return ModelExecutionResult(
-        patchbitmap,
+        gridBitmap,
         maskImageApplied,
         scaledBitmap,
         maskOnly,
@@ -155,6 +156,11 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
         0
       )
     }
+  }
+
+  private fun JudgeGridBitmapColor(data: Bitmap)
+  {
+
   }
 
   // base:
@@ -210,8 +216,6 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
     }
   }
 
-
-
   private fun convertBytebufferMaskToBitmap(
     inputBuffer: ByteBuffer,
     imageWidth: Int,
@@ -261,7 +265,6 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
 
     public const val TAG = "SegmentationInterpreter"
     private const val imageSegmentationModel = "tflite_grid.211217.tflite"
-    private const val imageSize = 257
     private const val width = 320
     private const val height = 240
     const val NUM_CLASSES = 22
