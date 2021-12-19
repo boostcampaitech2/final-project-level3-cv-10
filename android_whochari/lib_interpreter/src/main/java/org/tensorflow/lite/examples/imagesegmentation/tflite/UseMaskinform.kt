@@ -11,13 +11,13 @@ class UseMaskinform(){
     fun startTTS(){
         this.TTScallback?.invoke("안내를 시작합니다.")
         frontStack = 0
-        count = 0
     }
     fun stopTTS(){
         this.TTScallback?.invoke("안내를 중지합니다.")
     }
 
     private fun statusDistinguish(patch: Array<Array<Int>>) : String{
+        // 현재 위치
         val centerj = intArrayOf(5, 6, 7, 8, 9, 10, 11, 12, 13, 14) // width
         val centeri = IntArray(5) { it -> it + 10 } // height
         var status: String =  maskDistinguish(patch, centeri, centerj)
@@ -25,8 +25,9 @@ class UseMaskinform(){
     }
 
     private fun frontDistinguish(patch: Array<Array<Int>>) : String{
+        // 전방 위치
         val centerj = IntArray(10) { it -> it + 5 } // width
-        val centeri = IntArray(7) { it -> it} // height
+        val centeri = IntArray(4) { it -> it + 3} // height
         var status: String =  maskDistinguish(patch, centeri, centerj)
         return status
     }
@@ -39,22 +40,25 @@ class UseMaskinform(){
                                                     "sidewalk" to 0,
                                                     "caution" to 0,
                                                     "braille" to 0,
+                                                    "bike" to 0,
                                                     "background" to 0,
                                                     "roadway" to 0,
                                                     "crosswalk" to 0)
         for(i in IArray.indices){
             for(j in JArray.indices){
                 var label = labelsArrays[patch[i][j]].split("_")[0].lowercase(Locale.getDefault())
-                if (label != "roadway_crosswalk") {
+                if (labelsArrays[patch[i][j]] != "roadway_crosswalk") {
                     tempMap[label] = tempMap[label]!! + 1
                 }
                 else{
-                    tempMap["crosswalk"]!!.plus(1)
+                    tempMap["crosswalk"] = tempMap[label]!! + 1
                 }
             }
         }
-        var maxCnt : Int = 0
-        var maxKey : String = "background"
+        var maxCnt = 0
+        var maxKey = "background"
+
+        //dict search(max)
         for ((k, v) in tempMap){
             if (v > maxCnt){
                 maxKey = k
@@ -78,31 +82,33 @@ class UseMaskinform(){
         if (tempStatus == null){
             tempStatus = statusDistinguish(patch)
             tempFront[1] = frontDistinguish(patch)
-            this.TTScallback?.invoke("현재 위치에 ${KoreanClass[tempStatus]!!}에 있습니다.")
+            this.TTScallback?.invoke("현재 위치에 ${KoreanClass[tempStatus]!!} 있습니다.")
 
         }
-        tempFront[0] = frontDistinguish(patch)
-        var frontPair = checkStack(tempFront, frontStack)
+        var frontPair = checkStack(tempFront, frontStack, frontDistinguish(patch))
         tempFront = frontPair.first
         frontStack = frontPair.second
+
         Log.d("count", "${count}")
     }
 
-    private fun checkStack(temp : MutableList<String?>, stack : Int)
+    private fun checkStack(temp : MutableList<String?>, stack: Int, str : String)
         :Pair<MutableList<String?>, Int>{
-        if (temp[0] == temp[1]) {
+        var tempStack : Int = stack
+        if (str == temp[1]) {
             return Pair(temp, 0)
         }
+        temp[0] = str
         if (temp[0] != temp[1]) {
-            stack.plus(1)
+            tempStack += 1
         }
-        if (stack == count){
+        if (tempStack == count){
             this.TTScallback?.invoke("전방에 ${KoreanClass[temp[0]]!!} 있습니다.")
             temp[1] = temp[0]
-            stack.minus(count)
+            tempStack -= count
         }
-        Log.d("stack", "$stack")
-        return Pair(temp, stack)
+        Log.d("stack", "$tempStack")
+        return Pair(temp, tempStack)
     }
 
     companion object {
@@ -140,6 +146,6 @@ class UseMaskinform(){
             "roadway" to 3,
             "crosswalk" to 2) // 서열(낮을수록 높은것)
 
-        private var count : Int = 7
+        private val count : Int = 7
     }
 }
