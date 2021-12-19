@@ -124,6 +124,41 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
 
       val gridBitmap = ImageUtils.resizeBitmap(maskOnly, gridWidth, gridHeight, false)
       //여기서 영상처리해서 UI에 표시
+      val intValues = IntArray(gridWidth * gridHeight)
+      gridBitmap.getPixels(intValues, 0, gridWidth, 0, 0, gridWidth, gridHeight)
+      //grid 위치와 class 유형에 따라 gridBitmap에 표시
+      //motionDetection고려
+      var centerGrid = intArrayOf(1, 2, 5, 6, 9, 10)
+      var leftGrid = intArrayOf(0, 4, 8)
+      var rightGrid = intArrayOf(3, 7, 11)
+      
+      //left right grid 표시 필요
+      //grid 색상도 good/bad class에 따라 변경 필요
+      //최종은 resize 크게
+      var centerGridCount = 0
+      var leftGridCount = 0
+      var rightGridCount = 0
+      for(pos in 0 until gridWidth*gridHeight)
+      {
+        if(pos in centerGrid )
+        {
+          //if(good label)
+          //centerGridCount++
+        }
+        else
+        {
+          if(pos in leftGrid)
+          {
+            leftGridCount++
+          }
+          if(pos in rightGrid)
+          {
+            rightGridCount++
+          }
+        }
+      }
+
+      
 
 
       maskFlatteningTime = SystemClock.uptimeMillis() - maskFlatteningTime
@@ -283,6 +318,46 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
         "sidewalk_damaged", "sidewalk_other", "sidewalk_soil_stone",
         "sidewalk_urethane"
       )
+
+    val ambiguousLabels = arrayOf(
+      "background"
+    )
+
+
+    private InvertColorToLabel
+    private RedBox(option)
+    private VideoToBmp()
+
+    val goodLabels = arrayOf(
+      "alley_crosswalk", "alley_normal",
+      "bike_lane",
+      "braille_guide_blocks_normal", "caution_zone_grating",
+      "sidewalk_asphalt", "sidewalk_blocks", "sidewalk_cement",
+      "sidewalk_other", "sidewalk_soil_stone",
+      "sidewalk_urethane"
+    )
+
+    val badLabels = arrayOf(
+      "background", "alley_crosswalk", "alley_damaged", "alley_normal",
+      "alley_speed_bump", "bike_lane", "braille_guide_blocks_damaged",
+      "braille_guide_blocks_normal", "caution_zone_grating",
+      "caution_zone_manhole", "caution_zone_repair_zone", "caution_zone_stairs",
+      "caution_zone_tree_zone", "roadway_crosswalk", "roadway_normal",
+      "sidewalk_asphalt", "sidewalk_blocks", "sidewalk_cement",
+      "sidewalk_damaged", "sidewalk_other", "sidewalk_soil_stone",
+      "sidewalk_urethane"
+    )
+
+    val noticeLabels = arrayOf(
+      "background", "alley_crosswalk", "alley_damaged", "alley_normal",
+      "alley_speed_bump", "bike_lane", "braille_guide_blocks_damaged",
+      "braille_guide_blocks_normal", "caution_zone_grating",
+      "caution_zone_manhole", "caution_zone_repair_zone", "caution_zone_stairs",
+      "caution_zone_tree_zone", "roadway_crosswalk", "roadway_normal",
+      "sidewalk_asphalt", "sidewalk_blocks", "sidewalk_cement",
+      "sidewalk_damaged", "sidewalk_other", "sidewalk_soil_stone",
+      "sidewalk_urethane"
+    )
 
     init {
 

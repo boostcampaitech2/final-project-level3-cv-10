@@ -19,6 +19,7 @@ package org.tensorflow.lite.examples.imagesegmentation.tflite
 import android.graphics.Bitmap
 
 data class ModelExecutionResult(
+  val gridResult: Bitmap,
   val bitmapResult: Bitmap,
   val bitmapOriginal: Bitmap,
   val bitmapMaskOnly: Bitmap,

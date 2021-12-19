@@ -130,6 +130,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       Log.d(TAG, "Total time execution $fullTimeExecutionTime")
 
       return ModelExecutionResult(
+        patchbitmap,
         maskImageApplied,
         scaledBitmap,
         maskOnly,
@@ -143,6 +144,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
 
       val emptyBitmap = ImageUtils.createEmptyBitmap(width, height)
       return ModelExecutionResult(
+        emptyBitmap,
         emptyBitmap,
         emptyBitmap,
         emptyBitmap,
@@ -230,7 +232,6 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
         mSegmentBits[x][y] = 0
 
         for (c in 0 until NUM_CLASSES) {
-          //val value = inputBuffer.getFloat((y * imageWidth * NUM_CLASSES + x * NUM_CLASSES + c) * 4)
           val value = inputBuffer.getFloat((y * imageWidth + c * nextClass + x ) * 4)
           if (c == 0 || value > maxVal) {
             maxVal = value
@@ -257,7 +258,6 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   companion object {
 
     public const val TAG = "SegmentationInterpreter"
-    //private const val imageSegmentationModel = "deeplabv3_257_mv_gpu.tflite"
     private const val imageSegmentationModel = "tflite_grid.211217.tflite"
     private const val imageSize = 257
     private const val width = 320

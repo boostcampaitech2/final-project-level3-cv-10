@@ -1,0 +1,33 @@
+{
+  "buildFiles": [
+    "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\libcxx_helper\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+      "-C",
+      "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+    "-C",
+    "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "opencv_jni_shared-Debug-x86_64": {
+      "artifactName": "opencv_jni_shared",
+      "buildCommandComponents": [
+        "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+        "-C",
+        "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\x86_64",
+        "opencv_jni_shared"
+      ],
+      "abi": "x86_64",
+      "output": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\x86_64\\libopencv_jni_shared.a",
+      "runtimeFiles": []
+    }
+  }
+}
