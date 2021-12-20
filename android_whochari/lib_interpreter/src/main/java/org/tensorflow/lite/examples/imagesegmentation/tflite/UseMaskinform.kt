@@ -29,7 +29,7 @@ class UseMaskinform(){
 
     private fun statusDistinguish(patch: Array<Array<Int>>) : String{
         // 현재 위치
-        val centeri = IntArray(10) {i -> i + 5}// width
+        val centeri = IntArray(6) {i -> i + 7}// width
         val centerj = IntArray(5) {i -> i + 10} // height
         var status: String =  maskDistinguish(patch, centeri, centerj)
         return status
@@ -37,7 +37,7 @@ class UseMaskinform(){
 
     private fun frontDistinguish(patch: Array<Array<Int>>) : String{
         // 전방 위치
-        val centeri = IntArray(10) {i -> i + 5} // width
+        val centeri = IntArray(12) {i -> i + 4} // width
         val centerj = IntArray(7) {i -> i} // height
         var status: String =  maskDistinguish(patch, centeri, centerj)
         return status
@@ -45,8 +45,8 @@ class UseMaskinform(){
 
     private fun leftUpDistinguish(patch: Array<Array<Int>>) : String{
         // 전방 위치
-        val centeri = IntArray(5) {i -> i} // width
-        val centerj = IntArray(15) {i ->i} // height
+        val centeri = IntArray(8) {i -> i} // width
+        val centerj = IntArray(7) {i ->i} // height
         var status: String =  maskDistinguish(patch, centeri, centerj)
         return status
     }
@@ -54,8 +54,8 @@ class UseMaskinform(){
 
     private fun rightUpDistinguish(patch: Array<Array<Int>>) : String{
         // 전방 위치
-        val centeri = IntArray(5) {i -> i + 15} // width
-        val centerj = IntArray(15) {i -> i} // height
+        val centeri = IntArray(8) {i -> i + 12} // width
+        val centerj = IntArray(7) {i -> i} // height
         var status: String =  maskDistinguish(patch, centeri, centerj)
         return status
     }
@@ -130,14 +130,16 @@ class UseMaskinform(){
 
 
         if (tempStatus[1] == null) {
+            var str = ""
             tempStatus[1] = statusDistinguish(patch)
             tempFront[1] = frontDistinguish(patch)
             tempLeftUp[1] = leftUpDistinguish(patch)
             //tempLeftDown[1] = leftDownDistinguish(patch)
             tempRightUp[1] = rightUpDistinguish(patch)
             //tempRightDown[1] = rightDownDistinguish(patch)
-            this.TTScallback?.invoke("현재 위치에 ${KoreanClass[tempStatus[1]]!!} 있습니다.")
+            TTScallback(Triple(" "," "," "), Triple(tempFront[1]!!, tempLeftUp[1]!!, tempRightUp[1]!!))
         }
+        var prev : Triple<String, String, String> = Triple(tempFront[1]!!, tempLeftUp[1]!!, tempRightUp[1]!!) //전방, 좌측, 우측
         var statusPair = checkStack(tempStatus, statusStack, statusDistinguish(patch), 0)
         tempStatus = statusPair.first
         statusStack = statusPair.second
@@ -154,7 +156,9 @@ class UseMaskinform(){
         var rightUpPair = checkStack(tempRightUp, rightUpStack, rightUpDistinguish(patch), 4)
         tempRightUp = rightUpPair.first
         rightUpStack = rightUpPair.second
+        var temp : Triple<String, String, String> = Triple(tempFront[1]!!, tempLeftUp[1]!!, tempRightUp[1]!!)
 
+        TTScallback(prev, temp)
 
         return "status ${tempStatus[1].toString()} $statusStack\n" +
                 "front ${tempFront[1].toString()} $frontStack\n" +
@@ -172,9 +176,6 @@ class UseMaskinform(){
         tempStack += 1
 
         if (tempStack == count){
-            if (location == 1 || location == 2 || location == 4) {
-                TTScallback(location, temp[0])
-            }
             temp[1] = temp[0]
             tempStack -= count
         }
@@ -182,13 +183,55 @@ class UseMaskinform(){
         return Pair(temp, tempStack)
     }
 
-    private fun TTScallback(location : Int, label : String?){
-        val locationlabel = mapOf(1 to "전방에",
+    private fun TTScallback(prev : Triple<String, String, String>, temp : Triple<String, String, String>){
+        val (prevF, prevL, prevR) = prev
+        val (tempF, tempL, tempR) = temp
+        val locationLabel : Map<Int, String> = mapOf(1 to "전방에",
             2 to "좌측에",
-            4 to "우측에")
+            3 to "전방 및 좌측에",
+            4 to "우측에",
+            5 to "전방 및 우측에",
+            6 to "좌측과 우측에",
+            7 to "전방 및 좌측과 우측에")
+        if (prevF == tempF && prevL == tempL && prevR == tempR){
+            return
+        }
+        else{
+            var stack : Int = 0
+            var strList : MutableList<String> = mutableListOf()
+            if (tempF == tempL && tempL == tempR) {
+                this.TTScallback?.invoke("전방에 넓게 ${KoreanClass[tempR]!!}${partClass[tempR]} 있습니다.")
+                return
+            }
+            if (tempF != prevF){
+                stack += 1
+                strList.add(tempF)
+            }
+            if (tempL != prevL){
+                stack += 2
+                strList.add(tempF)
+            }
+            if (tempR != prevR){
+                stack += 4
+                strList.add(tempF)
+            }
+            var str : String = " "
+            var strpart : String = ""
 
-        this.TTScallback?.invoke("${locationlabel[location]} ${KoreanClass[label]!!} 있습니다.")
+            for (i in 0 until strList.size){
+                if (i == 0 || (i >= 1 && strList[i] != strList[i - 1])){
+                    str += KoreanClass[strList[i]]
+                }
+                if (i == strList.size - 1){
+                    strpart += partClass[strList[i]]
+                }
+            }
+
+            this.TTScallback?.invoke("${locationLabel[stack]}${str}${strpart} 있습니다.")
+        }
+        return
     }
+
     companion object {
         private var tempStatus : MutableList<String?> = mutableListOf(null, null)//temp, prev
         private var tempFront : MutableList<String?> = mutableListOf(null, null)  //temp, prev
@@ -197,14 +240,24 @@ class UseMaskinform(){
         private var tempRightUp : MutableList<String?>  = mutableListOf(null, null)//temp, prev
         private var tempRightDown : MutableList<String?>  = mutableListOf(null, null) //temp, prev
         private var KoreanClass : Map<String, String>
-                = mapOf("alley" to "차도가",
-            "sidewalk" to "인도가",
-            "caution" to "주의구역이",
-            "braille" to "점자블록이",
-            "bike" to "자전거도로가",
-            "background" to "장애물이",
-            "crosswalk" to "횡단보도가",
-            "roadway" to "차도가"
+                = mapOf("alley" to "차도",
+            "sidewalk" to "인도",
+            "caution" to "주의구역",
+            "braille" to "점자블록",
+            "bike" to "자전거도로",
+            "background" to "장애물",
+            "crosswalk" to "횡단보도",
+            "roadway" to "차도"
+        )
+        private var partClass : Map<String, String>
+                = mapOf("alley" to "가",
+            "sidewalk" to "가",
+            "caution" to "이",
+            "braille" to "이",
+            "bike" to "가",
+            "background" to "이",
+            "crosswalk" to "가",
+            "roadway" to "가"
         )
         private var statusStack : Int = 0
         private var frontStack : Int = 0
