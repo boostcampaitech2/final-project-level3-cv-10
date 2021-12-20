@@ -46,12 +46,13 @@ class MLExecutionViewModel : ViewModel() {
     filePath: String,
     imageSegmentationModel: ImageSegmentationModelExecutor?,
     inferenceThread: ExecutorCoroutineDispatcher,
-    ttsclass : UseMaskinform
+    ttsclass : UseMaskinform,
+    demoButton_flag : Boolean
   ): Deferred<Long> {
       val t = viewModelScope.async(inferenceThread) {
         val contentImage = ImageUtils.decodeBitmap(File(filePath))
         try {
-          val result = imageSegmentationModel?.execute(contentImage, ttsclass)
+          val result = imageSegmentationModel?.execute(contentImage, ttsclass, demoButton_flag)
           _resultingBitmap.postValue(result)
           result!!.executiontime
 

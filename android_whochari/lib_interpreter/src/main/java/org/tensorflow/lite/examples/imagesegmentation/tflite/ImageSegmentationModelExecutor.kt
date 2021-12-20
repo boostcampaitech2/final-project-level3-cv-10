@@ -21,12 +21,11 @@ import android.content.res.AssetManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.os.Environment
 import android.os.SystemClock
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.core.graphics.ColorUtils
-import java.io.FileInputStream
-import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.MappedByteBuffer
@@ -42,8 +41,8 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 import org.tensorflow.lite.nnapi.NnApiDelegate;
 import org.tensorflow.lite.Interpreter;
-import java.io.InputStream
 import org.tensorflow.lite.examples.imagesegmentation.tflite.UseMaskinform
+import java.io.*
 
 /**
  * Class responsible to run the Image Segmentation model. more information about the DeepLab model
@@ -64,6 +63,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   private var preprocessTime = 0L
   private var imageSegmentationTime = 0L
   private var maskFlatteningTime = 0L
+
   private var statusLog : String = ""
   private var numberThreads = 8
   private val matInput: Mat? = null
@@ -88,15 +88,22 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   }
 
 
-  fun execute(data: Bitmap, ttsclass : UseMaskinform): ModelExecutionResult {
+  fun execute(data: Bitmap, ttsclass : UseMaskinform, demoButton_flag : Boolean): ModelExecutionResult {
     try {
       fullTimeExecutionTime = SystemClock.uptimeMillis()
       preprocessTime = SystemClock.uptimeMillis()
 
-      //var test_image = getBitmapFromAsset( "test_images/수정됨_MP_SEL_SUR_000006.png")
-      //val scaledBitmap = ImageUtils.resizeBitmap(test_image, width, height)
+      var scaledBitmap:Bitmap? = null
+      if(demoButton_flag)
+      {
+        var demoImage = getBitmapFromAsset( "test_images/수정됨_MP_SEL_SUR_000006.png")
+        scaledBitmap = ImageUtils.resizeBitmap(demoImage, width, height, false)
+      }
+      else
+      {
+        scaledBitmap = ImageUtils.resizeBitmap(data, width, height, false)
+      }
 
-      val scaledBitmap = ImageUtils.resizeBitmap(data, width, height)
       val contentArray =
         ImageUtils.bitmapToByteBuffer(scaledBitmap, width, height, IMAGE_MEAN, IMAGE_STD)
       preprocessTime = SystemClock.uptimeMillis() - preprocessTime
@@ -123,8 +130,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       }
       val gridBitmap = ImageUtils.resizeBitmap(patchbitmap, width, height, false)
       val maskOnly = ImageUtils.resizeBitmap(patchbitmap, width, height)
-      statusLog = ttsclass.executeTTS(patch)
-
+      statusLog = ttsclass.executeTTS(pathch)
 
       maskFlatteningTime = SystemClock.uptimeMillis() - maskFlatteningTime
       Log.d(TAG, "Time to flatten the mask result $maskFlatteningTime")

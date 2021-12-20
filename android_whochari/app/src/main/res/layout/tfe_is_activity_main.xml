@@ -85,6 +85,19 @@
 
             </LinearLayout>
         </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/demo_button"
+            android:layout_width="158dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F60000"
+            android:drawableLeft="@drawable/demo_button_from_flaticon"
+
+            android:text="Run Demo"
+
+
+            />
+
     </LinearLayout>
 
     <include layout="@layout/tfe_is_bottom_sheet_layout" />
