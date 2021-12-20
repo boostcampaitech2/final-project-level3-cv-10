@@ -93,7 +93,7 @@
             android:backgroundTint="#F60000"
             android:drawableLeft="@drawable/demo_button_from_flaticon"
 
-            android:text="Run Demo"
+            android:text="Disable Demo Mode"
 
 
             />

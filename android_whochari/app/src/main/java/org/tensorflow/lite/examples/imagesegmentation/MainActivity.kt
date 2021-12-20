@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.hardware.camera2.CameraCharacteristics
 import android.os.Build
 import android.os.Bundle
@@ -80,6 +81,7 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished{
   private lateinit var chipsGroup: ChipGroup
   private lateinit var rerunButton: Button
   private lateinit var captureButton: ImageButton
+  private lateinit var demoButton: Button
   var tts: TextToSpeech? = null
   private var lastSavedFile = ""
   private var useGPU = false
@@ -88,6 +90,7 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished{
   private val inferenceThread = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
   private val mainScope = MainScope()
   private var captureButton_flag : Boolean = false
+  private var demoButton_flag : Boolean = false
   private var lensFacing = CameraCharacteristics.LENS_FACING_BACK
   private var usetime : Long = 0
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,6 +108,7 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished{
     maskImageView = findViewById(R.id.mask_imageview)
     chipsGroup = findViewById(R.id.chips_group)
     captureButton = findViewById(R.id.capture_button)
+    demoButton = findViewById(R.id.demo_button)
 
     val useGpuSwitch: Switch = findViewById(R.id.switch_use_gpu)
     // Request camera permissions
@@ -125,6 +129,22 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished{
       }
     )
 
+    demoButton.setBackgroundColor(Color.RED)
+    demoButton.setOnClickListener  {
+      if(demoButton_flag)
+      {
+        demoButton_flag = false
+        demoButton.setBackgroundColor(Color.RED)
+        demoButton.setText("Disable Demo Mode")
+      }
+      else
+      {
+        demoButton_flag = true
+        demoButton.setBackgroundColor(Color.GREEN)
+        demoButton.setText("Enable Demo Mode")
+      }
+    }
+
     createModelExecutor(useGPU)
     useGpuSwitch.setOnCheckedChangeListener { _, isChecked ->
       useGPU = isChecked
@@ -135,7 +155,7 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished{
     rerunButton.setOnClickListener {
       if (lastSavedFile.isNotEmpty()) {
         enableControls(false)
-        viewModel.onApplyModel(lastSavedFile, imageSegmentationModel, inferenceThread, TTSCallBack)
+        viewModel.onApplyModel(lastSavedFile, imageSegmentationModel, inferenceThread, TTSCallBack, demoButton_flag)
       }
     }
 
@@ -319,7 +339,7 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished{
 
     lastSavedFile = file.absolutePath
     enableControls(false)
-    val time : Deferred<Long> = viewModel.onApplyModel(file.absolutePath, imageSegmentationModel, inferenceThread, TTSCallBack)
+    val time : Deferred<Long> = viewModel.onApplyModel(file.absolutePath, imageSegmentationModel, inferenceThread, TTSCallBack, demoButton_flag)
     return time
   }
 }

@@ -1,3 +1,3 @@
-C:/Users/sb933/GIT/final_pr/android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/opencv_jni_shared.dir
-C:/Users/sb933/GIT/final_pr/android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/edit_cache.dir
-C:/Users/sb933/GIT/final_pr/android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+D:/AI_BoostCamp_Naver/Task/Final/Git/android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/opencv_jni_shared.dir
+D:/AI_BoostCamp_Naver/Task/Final/Git/android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/AI_BoostCamp_Naver/Task/Final/Git/android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/rebuild_cache.dir

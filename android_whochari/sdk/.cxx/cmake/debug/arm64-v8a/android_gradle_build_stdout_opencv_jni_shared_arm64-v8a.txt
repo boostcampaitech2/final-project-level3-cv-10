@@ -1,2 +1,2 @@
-ninja: Entering directory `C:\Users\sb933\GIT\final_pr\android_whochari\sdk\.cxx\cmake\debug\arm64-v8a'
+ninja: Entering directory `D:\AI_BoostCamp_Naver\Task\Final\Git\android_whochari\sdk\.cxx\cmake\debug\arm64-v8a'
 ninja: no work to do.

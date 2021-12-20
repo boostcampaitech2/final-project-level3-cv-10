@@ -130,7 +130,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       }
       val gridBitmap = ImageUtils.resizeBitmap(patchbitmap, width, height, false)
       val maskOnly = ImageUtils.resizeBitmap(patchbitmap, width, height)
-      statusLog = ttsclass.executeTTS(pathch)
+      statusLog = ttsclass.executeTTS(patch)
 
       maskFlatteningTime = SystemClock.uptimeMillis() - maskFlatteningTime
       Log.d(TAG, "Time to flatten the mask result $maskFlatteningTime")
