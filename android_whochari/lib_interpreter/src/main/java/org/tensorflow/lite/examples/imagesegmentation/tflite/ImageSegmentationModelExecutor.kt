@@ -96,7 +96,8 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       var scaledBitmap:Bitmap? = null
       if(demoButton_flag)
       {
-        var demoImage = getBitmapFromAsset( "test_images/수정됨_MP_SEL_SUR_000006.png")
+        //var demoImage = getBitmapFromAsset( "test_images/수정됨_MP_SEL_SUR_000004.png")
+        var demoImage = getBitmapFromAsset( "test_images/00000.png")
         scaledBitmap = ImageUtils.resizeBitmap(demoImage, width, height, false)
       }
       else
@@ -129,7 +130,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
         }
       }
       val gridBitmap = ImageUtils.resizeBitmap(patchbitmap, width, height, false)
-      val maskOnly = ImageUtils.resizeBitmap(patchbitmap, width, height)
+      val maskOnly = ImageUtils.resizeBitmap(patchbitmap, width, height, false)
       statusLog = ttsclass.executeTTS(patch)
 
       maskFlatteningTime = SystemClock.uptimeMillis() - maskFlatteningTime
