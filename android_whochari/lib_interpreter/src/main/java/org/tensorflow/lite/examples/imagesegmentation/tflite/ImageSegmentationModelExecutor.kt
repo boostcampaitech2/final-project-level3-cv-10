@@ -68,6 +68,9 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   private var numberThreads = 8
   private val matInput: Mat? = null
   private val matResult: Mat? = null
+  private var demoIndex = 2630
+  private val demoIndexStart = 2630
+  private val demoIndexEnd = 2776
 
   private var _context:Context = context
   init {
@@ -76,7 +79,6 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
     //segmentationMasks = ByteBuffer.allocateDirect(1 * imageSize * imageSize * NUM_CLASSES * 4)
     segmentationMasks = ByteBuffer.allocateDirect(1 * output_width * output_height * NUM_CLASSES * 4)
     segmentationMasks.order(ByteOrder.nativeOrder())
-    // _context = context
   }
 
 
@@ -96,9 +98,14 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       var scaledBitmap:Bitmap? = null
       if(demoButton_flag)
       {
-        //var demoImage = getBitmapFromAsset( "test_images/수정됨_MP_SEL_SUR_000004.png")
-        var demoImage = getBitmapFromAsset( "test_images/00000.png")
+        if(demoIndex > demoIndexEnd)
+        {
+          demoIndex = demoIndexStart
+        }
+        var path = "test_images/" + "%05d".format(demoIndex) + ".png"
+        var demoImage = getBitmapFromAsset(path)
         scaledBitmap = ImageUtils.resizeBitmap(demoImage, width, height, false)
+        demoIndex++
       }
       else
       {
