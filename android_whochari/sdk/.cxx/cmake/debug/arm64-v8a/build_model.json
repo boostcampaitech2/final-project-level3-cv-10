@@ -6,12 +6,12 @@
     "deprecated": false,
     "default": true
   },
-  "originalCxxBuildFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a",
-  "cxxBuildFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a",
+  "originalCxxBuildFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a",
+  "cxxBuildFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a",
   "abiPlatformVersion": 21,
   "cmake": {
-    "cmakeWrappingBaseFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cxx\\debug\\arm64-v8a",
-    "cmakeArtifactsBaseFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a",
+    "cmakeWrappingBaseFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\.cxx\\cxx\\debug\\arm64-v8a",
+    "cmakeArtifactsBaseFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a",
     "effectiveConfiguration": {
       "name": "traditional-android-studio-cmake-environment",
       "description": "Composite reified CMakeSettings configuration",
@@ -19,13 +19,13 @@
       "inheritEnvironments": [
         "ndk"
       ],
-      "buildRoot": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a",
-      "cmakeToolchain": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\build\\cmake\\android.toolchain.cmake",
-      "cmakeExecutable": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
+      "buildRoot": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a",
+      "cmakeToolchain": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\build\\cmake\\android.toolchain.cmake",
+      "cmakeExecutable": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
       "variables": [
         {
           "name": "CMAKE_FIND_ROOT_PATH",
-          "value": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\prefab\\arm64-v8a\\prefab"
+          "value": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\.cxx\\cmake\\debug\\prefab\\arm64-v8a\\prefab"
         },
         {
           "name": "CMAKE_BUILD_TYPE",
@@ -33,7 +33,7 @@
         },
         {
           "name": "CMAKE_TOOLCHAIN_FILE",
-          "value": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\build\\cmake\\android.toolchain.cmake"
+          "value": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\build\\cmake\\android.toolchain.cmake"
         },
         {
           "name": "ANDROID_ABI",
@@ -41,7 +41,7 @@
         },
         {
           "name": "ANDROID_NDK",
-          "value": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529"
+          "value": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529"
         },
         {
           "name": "ANDROID_PLATFORM",
@@ -53,7 +53,7 @@
         },
         {
           "name": "CMAKE_ANDROID_NDK",
-          "value": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529"
+          "value": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529"
         },
         {
           "name": "CMAKE_EXPORT_COMPILE_COMMANDS",
@@ -61,15 +61,15 @@
         },
         {
           "name": "CMAKE_LIBRARY_OUTPUT_DIRECTORY",
-          "value": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a"
+          "value": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a"
         },
         {
           "name": "CMAKE_RUNTIME_OUTPUT_DIRECTORY",
-          "value": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a"
+          "value": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a"
         },
         {
           "name": "CMAKE_MAKE_PROGRAM",
-          "value": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
+          "value": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
         },
         {
           "name": "CMAKE_SYSTEM_NAME",
@@ -85,7 +85,7 @@
         }
       ]
     },
-    "cmakeServerLogFile": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a\\cmake_server_log.txt"
+    "cmakeServerLogFile": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a\\cmake_server_log.txt"
   },
   "variant": {
     "buildSystemArgumentList": [
@@ -94,8 +94,8 @@
     "cFlagsList": [],
     "cppFlagsList": [],
     "variantName": "debug",
-    "objFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\build\\intermediates\\cmake\\debug\\obj",
-    "soFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\build\\intermediates\\cmake\\debug\\lib",
+    "objFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\build\\intermediates\\cmake\\debug\\obj",
+    "soFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\build\\intermediates\\cmake\\debug\\lib",
     "isDebuggableEnabled": true,
     "validAbiList": [
       "ARMEABI_V7A",
@@ -109,15 +109,15 @@
     "implicitBuildTargetSet": [],
     "cmakeSettingsConfiguration": "android-gradle-plugin-predetermined-name",
     "module": {
-      "cxxFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx",
+      "cxxFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\.cxx",
       "splitsAbiFilterSet": [],
-      "intermediatesFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\build\\intermediates",
+      "intermediatesFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\build\\intermediates",
       "gradleModulePathName": ":sdk",
-      "moduleRootFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk",
-      "moduleBuildFile": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\build.gradle",
-      "makeFile": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\libcxx_helper\\CMakeLists.txt",
+      "moduleRootFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk",
+      "moduleBuildFile": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\build.gradle",
+      "makeFile": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\libcxx_helper\\CMakeLists.txt",
       "buildSystem": "CMAKE",
-      "ndkFolder": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529",
+      "ndkFolder": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529",
       "ndkVersion": "21.4.7075529",
       "ndkSupportedAbiList": [
         "ARMEABI_V7A",
@@ -180,31 +180,31 @@
           "default": true
         }
       ],
-      "originalCmakeToolchainFile": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\build\\cmake\\android.toolchain.cmake",
-      "cmakeToolchainFile": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\build\\cmake\\android.toolchain.cmake",
+      "originalCmakeToolchainFile": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\build\\cmake\\android.toolchain.cmake",
+      "cmakeToolchainFile": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\build\\cmake\\android.toolchain.cmake",
       "cmake": {
         "isValidCmakeAvailable": true,
-        "cmakeExe": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
+        "cmakeExe": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
         "minimumCmakeVersion": "3.10.2",
-        "ninjaExe": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+        "ninjaExe": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
         "isPreferCmakeFileApiEnabled": true
       },
       "stlSharedObjectMap": {
         "LIBCXX_SHARED": {
-          "ARMEABI_V7A": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\arm-linux-androideabi\\libc++_shared.so",
-          "ARM64_V8A": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\libc++_shared.so",
-          "X86": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\i686-linux-android\\libc++_shared.so",
-          "X86_64": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\x86_64-linux-android\\libc++_shared.so"
+          "ARMEABI_V7A": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\arm-linux-androideabi\\libc++_shared.so",
+          "ARM64_V8A": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\libc++_shared.so",
+          "X86": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\i686-linux-android\\libc++_shared.so",
+          "X86_64": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\x86_64-linux-android\\libc++_shared.so"
         },
         "LIBCXX_STATIC": {},
         "NONE": {},
         "SYSTEM": {}
       },
       "project": {
-        "rootBuildGradleFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari",
-        "cxxFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\.cxx",
-        "compilerSettingsCacheFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\.cxx",
-        "sdkFolder": "C:\\Users\\16p\\AppData\\Local\\Android\\Sdk",
+        "rootBuildGradleFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari",
+        "cxxFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\.cxx",
+        "compilerSettingsCacheFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\.cxx",
+        "sdkFolder": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk",
         "isNativeCompilerSettingsCacheEnabled": false,
         "isBuildOnlyTargetAbiEnabled": true,
         "isCmakeBuildCohabitationEnabled": false,
@@ -213,10 +213,10 @@
       },
       "nativeBuildOutputLevel": "QUIET"
     },
-    "prefabDirectory": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\prefab"
+    "prefabDirectory": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\.cxx\\cmake\\debug\\prefab"
   },
   "buildSettings": {
     "environmentVariables": []
   },
-  "prefabFolder": "D:\\AI_BoostCamp_Naver\\Task\\Final\\Git\\android_whochari\\sdk\\.cxx\\cmake\\debug\\prefab\\arm64-v8a"
+  "prefabFolder": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\.cxx\\cmake\\debug\\prefab\\arm64-v8a"
 }

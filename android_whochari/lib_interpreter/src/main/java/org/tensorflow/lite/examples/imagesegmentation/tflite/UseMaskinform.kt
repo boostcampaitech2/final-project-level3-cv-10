@@ -29,7 +29,7 @@ class UseMaskinform(){
 
     private fun statusDistinguish(patch: Array<Array<Int>>) : String{
         // 현재 위치
-        val centeri = IntArray(6) {i -> i + 7}// width
+        val centeri = IntArray(10) {i -> i + 5}// width
         val centerj = IntArray(5) {i -> i + 10} // height
         var status: String =  maskDistinguish(patch, centeri, centerj)
         return status
@@ -38,7 +38,7 @@ class UseMaskinform(){
     private fun frontDistinguish(patch: Array<Array<Int>>) : String{
         // 전방 위치
         val centeri = IntArray(10) {i -> i + 5} // width
-        val centerj = IntArray(5) {i -> i + 2} // height
+        val centerj = IntArray(7) {i -> i} // height
         var status: String =  maskDistinguish(patch, centeri, centerj)
         return status
     }
@@ -80,7 +80,7 @@ class UseMaskinform(){
                 if (label == "background"){
                     tempMap[label] = tempMap[label]!! + 1
                 }
-                else if (label == "roadway_crosswalk"){
+                else if (label == "roadway_crosswalk" || label == "alley_crosswalk"){
                     tempMap["crosswalk"] = tempMap["crosswalk"]!! + 1
                 }
                 else{
@@ -222,7 +222,25 @@ class UseMaskinform(){
             "sidewalk_damaged", "sidewalk_other", "sidewalk_soil_stone",
             "sidewalk_urethane"
         )
-
+        val goodLabels = arrayOf(
+            "alley_crosswalk", "alley_normal",
+            "sidewalk_asphalt", "sidewalk_blocks", "sidewalk_cement",
+            "sidewalk_other", "sidewalk_soil_stone","sidewalk_urethane"
+        )
+        val badLabels = arrayOf(
+            "alley_speed_bump", "caution_zone_grating",
+            "caution_zone_manhole", "caution_zone_repair_zone",
+            "caution_zone_tree_zone", "roadway_crosswalk", "roadway_normal"
+        )
+        val noticeLabels = arrayOf(
+            "alley_crosswalk", "alley_speed_bump", "caution_zone_grating",
+            "caution_zone_manhole", "caution_zone_repair_zone",
+            "caution_zone_tree_zone", "roadway_crosswalk", "roadway_normal"
+        )
+        val disregardLabels = arrayOf(
+            "background", "alley_damaged", "braille_guide_blocks_damaged",
+            "caution_zone_stairs", "sidewalk_damaged"
+        )
 
         val rankRoad : Map<String, Int> = mapOf("alley" to 4,
             "sidewalk" to 8,
@@ -233,6 +251,6 @@ class UseMaskinform(){
             "roadway" to 3,
             "crosswalk" to 2) // 서열(낮을수록 높은것)
 
-        private val count : Int = 5
+        private val count : Int = 3
     }
 }

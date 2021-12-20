@@ -1,4 +1,4 @@
-# Install script for directory: D:/AI_BoostCamp_Naver/Task/Final/Git/android_whochari/sdk/libcxx_helper
+# Install script for directory: C:/Users/sb933/GIT/final_pro/android_whochari/sdk/libcxx_helper
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/AI_BoostCamp_Naver/Task/Final/Git/android_whochari/sdk/.cxx/cmake/debug/arm64-v8a/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/sb933/GIT/final_pro/android_whochari/sdk/.cxx/cmake/debug/arm64-v8a/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

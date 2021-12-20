@@ -291,25 +291,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
         "sidewalk_damaged", "sidewalk_other", "sidewalk_soil_stone",
         "sidewalk_urethane"
       )
-    val goodLabels = arrayOf(
-      "alley_crosswalk", "alley_normal",
-      "sidewalk_asphalt", "sidewalk_blocks", "sidewalk_cement",
-      "sidewalk_other", "sidewalk_soil_stone","sidewalk_urethane"
-    )
-    val badLabels = arrayOf(
-      "alley_speed_bump", "caution_zone_grating",
-      "caution_zone_manhole", "caution_zone_repair_zone",
-      "caution_zone_tree_zone", "roadway_crosswalk", "roadway_normal"
-    )
-    val noticeLabels = arrayOf(
-      "alley_crosswalk", "alley_speed_bump", "caution_zone_grating",
-      "caution_zone_manhole", "caution_zone_repair_zone",
-      "caution_zone_tree_zone", "roadway_crosswalk", "roadway_normal"
-    )
-    val disregardLabels = arrayOf(
-      "background", "alley_damaged", "braille_guide_blocks_damaged",
-      "caution_zone_stairs", "sidewalk_damaged"
-    )
+
 
     init {
       val random = Random(System.currentTimeMillis())
