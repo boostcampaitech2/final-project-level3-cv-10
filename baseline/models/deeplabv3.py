@@ -1,4 +1,7 @@
-# Based on https://github.com/pytorch/vision/blob/main/torchvision/models/segmentation/deeplabv3.py
+#####################################################################################################
+# Based on https://github.com/pytorch/vision/blob/main/torchvision/models/segmentation/deeplabv3.py #
+#####################################################################################################
+
 from typing import List, Optional, Dict
 from collections import OrderedDict
 
@@ -6,20 +9,10 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-# from torchvision.models import mobilenetv3
 import models.mobilenetv3 as mobilenetv3
 import models.quantization_mobilenetv3 as quantization_mobilenetv3
 from torchvision.models.feature_extraction import create_feature_extractor
 from torchvision.models.segmentation.fcn import FCNHead
-
-
-def _load_weights(arch: str, model: nn.Module, model_url: Optional[str],
-                  progress: bool) -> None:
-    if model_url is None:
-        raise ValueError(f"No checkpoint is available for {arch}")
-    model.load_state_dict(
-        '/opt/ml/.cache/torch/hub/checkpoints/deeplabv3_mobilenet_v3_large-fc3c493d.pth'
-    )
 
 
 class DeepLabHead(nn.Sequential):
@@ -168,9 +161,6 @@ class DeepLabV3(nn.Module):
 
 
 def deeplabv3_mobilenet_v3(
-    pretrained: bool = False,
-    # progress: bool = True,
-    quantize: bool = False,
     small: bool = True,
     num_classes: int = 22,
     aux_loss: Optional[bool] = None,
@@ -187,23 +177,17 @@ def deeplabv3_mobilenet_v3(
         aux_loss (bool, optional): If True, it uses an auxiliary loss
         pretrained_backbone (bool): If True, the backbone will be pre-trained.
     """
-    # if pretrained:
-    #     aux_loss = True
-    #     pretrained_backbone = False
-    if quantize:
-        backbone = quantization_mobilenetv3.mobilenet_v3_large(
-            pretrained=pretrained_backbone, dilated=True)
+
+    if small:
+        backbone = mobilenetv3.mobilenet_v3_small(
+            pretrained=pretrained_backbone,
+            dilated=True,
+            reduced_tail=reduced_tail)
     else:
-        if small:
-            backbone = mobilenetv3.mobilenet_v3_small(
-                pretrained=pretrained_backbone,
-                dilated=True,
-                reduced_tail=reduced_tail)
-        else:
-            backbone = mobilenetv3.mobilenet_v3_large(
-                pretrained=pretrained_backbone,
-                dilated=True,
-                reduced_tail=reduced_tail)
+        backbone = mobilenetv3.mobilenet_v3_large(
+            pretrained=pretrained_backbone,
+            dilated=True,
+            reduced_tail=reduced_tail)
 
     backbone = backbone.features
     # Gather the indices of blocks which are strided. These are the locations of C1, ..., Cn-1 blocks.

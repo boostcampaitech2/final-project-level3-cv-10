@@ -31,13 +31,13 @@ CLASSES = [
 def get_train_transform():
     return A.Compose([
         # A.Resize(360, 640),
-        A.RandomCrop(360, 480),
-        # A.Resize(240, 427),
-        # A.RandomCrop(240, 320),
+        # A.RandomCrop(360, 480),
+        A.Resize(240, 427),
+        A.RandomCrop(240, 320),
         A.HorizontalFlip(p=0.5),
-        A.RandomContrast(p=0.3),
-        A.GaussNoise(p=0.3),
-        A.Blur(blur_limit=4, p=0.2),
+        A.RandomBrightnessContrast(p=0.3),
+        # A.GaussNoise(p=0.3),
+        # A.Blur(blur_limit=4, p=0.2),
         # A.Normalize(),
         ToTensorV2()
     ])
@@ -45,9 +45,8 @@ def get_train_transform():
 
 def get_valid_transform():
     return A.Compose([
-        # A.Resize(240, 427),
-        # A.RandomCrop(240, 320),
-        A.RandomCrop(360, 480),
+        A.Resize(240, 427),
+        A.RandomCrop(240, 320),
         # A.Normalize(),
         ToTensorV2()
     ])
