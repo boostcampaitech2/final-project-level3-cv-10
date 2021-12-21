@@ -127,6 +127,8 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
           segmentationMasks,
           output_width,
           output_height,
+          width,
+          height,
           scaledBitmap,
           segmentColors
         )
@@ -137,7 +139,6 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
         }
       }
       val gridBitmap = ImageUtils.resizeBitmap(patchbitmap, width, height, false)
-      val maskOnly = ImageUtils.resizeBitmap(patchbitmap, width, height, false)
       statusLog = ttsclass.executeTTS(patch)
 
       maskFlatteningTime = SystemClock.uptimeMillis() - maskFlatteningTime
@@ -150,7 +151,6 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
         gridBitmap,
         maskImageApplied,
         scaledBitmap,
-        maskOnly,
         formatExecutionLog(),
         itemsFound,
         fullTimeExecutionTime
@@ -161,7 +161,6 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
 
       val emptyBitmap = ImageUtils.createEmptyBitmap(width, height)
       return ModelExecutionResult(
-        emptyBitmap,
         emptyBitmap,
         emptyBitmap,
         emptyBitmap,
@@ -235,14 +234,15 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
     inputBuffer: ByteBuffer,
     imageWidth: Int,
     imageHeight: Int,
+    backgroundWidth: Int,
+    backgroundHeight: Int,
     backgroundImage: Bitmap,
     colors: IntArray
   ): Triple<Bitmap, Array<Array<Int>>, Map<String, Int>> {
     val conf = Bitmap.Config.ARGB_8888
     val maskBitmap = Bitmap.createBitmap(imageWidth, imageHeight, conf)
-    val resultBitmap = Bitmap.createBitmap(imageWidth, imageHeight, conf)
     val scaledBackgroundImage =
-      ImageUtils.resizeBitmap(backgroundImage, imageWidth, imageHeight)
+      ImageUtils.resizeBitmap(backgroundImage, backgroundWidth, backgroundHeight, false)
     val mSegmentBits = Array(imageWidth) { Array(imageHeight) { _ -> 0 } }
     val itemsFound = HashMap<String, Int>()
     inputBuffer.rewind()
@@ -269,10 +269,31 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
             colors[mSegmentBits[x][y]],
             scaledBackgroundImage.getPixel(x, y)
           )
-        resultBitmap.setPixel(x, y, newPixelColor)
+        //resultBitmap.setPixel(x, y, newPixelColor)
         maskBitmap.setPixel(x, y, colors[mSegmentBits[x][y]])
       }
     }
+
+    val patchbitmap = Bitmap.createBitmap(output_width, output_height, conf)
+    for (j in 0 until output_height) {
+      for (i in 0 until output_width) {
+        patchbitmap.setPixel(i, j, segmentColors[mSegmentBits[i][j]])
+      }
+    }
+
+    var maskOnly = ImageUtils.resizeBitmap(patchbitmap, backgroundWidth, backgroundHeight, false)
+    val resultBitmap = Bitmap.createBitmap(backgroundWidth, backgroundHeight, conf)
+    for (y in 0 until backgroundHeight) {
+      for (x in 0 until backgroundWidth) {
+        val newPixelColor =
+          ColorUtils.compositeColors(
+            maskOnly.getPixel(x, y),
+            scaledBackgroundImage.getPixel(x, y)
+          )
+        resultBitmap.setPixel(x, y, newPixelColor)
+      }
+    }
+
     return Triple(resultBitmap, mSegmentBits, itemsFound)
   }
 

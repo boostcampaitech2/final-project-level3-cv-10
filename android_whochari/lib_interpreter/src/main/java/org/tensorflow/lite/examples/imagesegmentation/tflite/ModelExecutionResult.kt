@@ -22,7 +22,6 @@ data class ModelExecutionResult(
   val gridResult: Bitmap,
   val bitmapResult: Bitmap,
   val bitmapOriginal: Bitmap,
-  val bitmapMaskOnly: Bitmap,
   val executionLog: String,
   // A map between labels and colors of the items found.
   val itemsFound: Map<String, Int>,

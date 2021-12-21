@@ -77,7 +77,6 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished{
   private lateinit var gridImageView: ImageView
   private lateinit var resultImageView: ImageView
   private lateinit var originalImageView: ImageView
-  private lateinit var maskImageView: ImageView
   private lateinit var chipsGroup: ChipGroup
   private lateinit var rerunButton: Button
   private lateinit var captureButton: ImageButton
@@ -105,7 +104,6 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished{
     gridImageView = findViewById(R.id.grid_imageview)
     resultImageView = findViewById(R.id.result_imageview)
     originalImageView = findViewById(R.id.original_imageview)
-    maskImageView = findViewById(R.id.mask_imageview)
     chipsGroup = findViewById(R.id.chips_group)
     captureButton = findViewById(R.id.capture_button)
     demoButton = findViewById(R.id.demo_button)
@@ -245,7 +243,6 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished{
     setImageView(gridImageView, modelExecutionResult.gridResult)
     setImageView(resultImageView, modelExecutionResult.bitmapResult)
     setImageView(originalImageView, modelExecutionResult.bitmapOriginal)
-    setImageView(maskImageView, modelExecutionResult.bitmapMaskOnly)
     val logText: TextView = findViewById(R.id.log_view)
     logText.text = modelExecutionResult.executionLog
 
