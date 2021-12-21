@@ -279,7 +279,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   companion object {
 
     public const val TAG = "SegmentationInterpreter"
-    private const val imageSegmentationModel = "tflite_grid.211217.tflite"
+    private const val imageSegmentationModel = "dlv3_mbv3-large_grid_reduced.211221.tflite"
     private const val width = 320
     private const val height = 240
     const val NUM_CLASSES = 22
