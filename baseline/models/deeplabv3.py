@@ -1,6 +1,4 @@
-#####################################################################################################
 # Based on https://github.com/pytorch/vision/blob/main/torchvision/models/segmentation/deeplabv3.py #
-#####################################################################################################
 
 from typing import List, Optional, Dict
 from collections import OrderedDict
@@ -10,7 +8,6 @@ from torch import nn
 from torch.nn import functional as F
 
 import models.mobilenetv3 as mobilenetv3
-import models.quantization_mobilenetv3 as quantization_mobilenetv3
 from torchvision.models.feature_extraction import create_feature_extractor
 from torchvision.models.segmentation.fcn import FCNHead
 
@@ -165,8 +162,8 @@ def deeplabv3_mobilenet_v3(
     num_classes: int = 22,
     aux_loss: Optional[bool] = None,
     pretrained_backbone: bool = False,
-    reduced_tail: bool = False,
-    grid_mode: bool = False,
+    reduced_tail: bool = True,
+    grid_mode: bool = True,
 ) -> DeepLabV3:
     """Constructs a DeepLabV3 model with a MobileNetV3-Large backbone.
     Args:
@@ -178,16 +175,10 @@ def deeplabv3_mobilenet_v3(
         pretrained_backbone (bool): If True, the backbone will be pre-trained.
     """
 
-    if small:
-        backbone = mobilenetv3.mobilenet_v3_small(
-            pretrained=pretrained_backbone,
-            dilated=True,
-            reduced_tail=reduced_tail)
-    else:
-        backbone = mobilenetv3.mobilenet_v3_large(
-            pretrained=pretrained_backbone,
-            dilated=True,
-            reduced_tail=reduced_tail)
+    backbone = mobilenetv3.mobilenet_v3(small=small,
+                                        pretrained=pretrained_backbone,
+                                        dilated=True,
+                                        reduced_tail=reduced_tail)
 
     backbone = backbone.features
     # Gather the indices of blocks which are strided. These are the locations of C1, ..., Cn-1 blocks.
