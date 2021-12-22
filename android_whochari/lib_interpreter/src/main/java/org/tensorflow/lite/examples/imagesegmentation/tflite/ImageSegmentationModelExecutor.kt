@@ -68,9 +68,9 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   private var numberThreads = 8
   private val matInput: Mat? = null
   private val matResult: Mat? = null
-  private var demoIndex = 2630
-  private val demoIndexStart = 2630
-  private val demoIndexEnd = 2776
+  private var demoIndex = 0
+  private var demoIndexStart = 0
+  private var demoIndexEnd = 4150
 
   private var _context:Context = context
   init {
@@ -79,6 +79,8 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
     //segmentationMasks = ByteBuffer.allocateDirect(1 * imageSize * imageSize * NUM_CLASSES * 4)
     segmentationMasks = ByteBuffer.allocateDirect(1 * output_width * output_height * NUM_CLASSES * 4)
     segmentationMasks.order(ByteOrder.nativeOrder())
+    //demoIndex = (demoIndexStart..demoIndexEnd).random()
+    demoIndex = 2732
   }
 
 
@@ -98,9 +100,9 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
       var scaledBitmap:Bitmap? = null
       if(demoButton_flag)
       {
-        if(demoIndex > demoIndexEnd)
+        if(demoIndex >= demoIndexEnd)
         {
-          demoIndex = demoIndexStart
+          demoIndex = (demoIndexStart..demoIndexEnd).random()
         }
         var path = "test_images/" + "%05d".format(demoIndex) + ".png"
         var demoImage = getBitmapFromAsset(path)
@@ -300,7 +302,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   companion object {
 
     public const val TAG = "SegmentationInterpreter"
-    private const val imageSegmentationModel = "dlv3_mbv3-large_grid_reduced.211221.tflite"
+    private const val imageSegmentationModel = "dlv3_mbv3-small_grid_reduced.211222.tflite"
     private const val width = 320
     private const val height = 240
     const val NUM_CLASSES = 22
