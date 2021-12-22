@@ -127,8 +127,8 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
           segmentationMasks,
           output_width,
           output_height,
-          width,
-          height,
+          width/2,
+          height/2,
           scaledBitmap,
           segmentColors
         )
