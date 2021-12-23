@@ -191,7 +191,7 @@ class CameraFragment : Fragment() {
       session = startCaptureSession(camera)
       cameraInitialized = true
       val captureRequest =
-        camera.createCaptureRequest(CameraDevice.TEMPLATE_ZERO_SHUTTER_LAG).apply {
+        camera.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE).apply {
           addTarget(viewFinder.holder.surface)
         }
 
