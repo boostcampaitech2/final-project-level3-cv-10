@@ -164,6 +164,7 @@ class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished{
   }
 
   private fun ttsSpeak(tts : TextToSpeech, str : String){
+    tts.setSpeechRate(2.0f)
     tts.speak(str, TextToSpeech.QUEUE_ADD, null, null)
     tts.playSilentUtterance(300, TextToSpeech.QUEUE_ADD, null)
   }

@@ -1,0 +1,39 @@
+{
+  "stringTable": {},
+  "buildFiles": [
+    "C:\\Users\\sb933\\GIT\\final_proje\\android_final\\sdk\\libcxx_helper\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\sb933\\GIT\\final_proje\\android_final\\sdk\\.cxx\\cmake\\release\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\sb933\\GIT\\final_proje\\android_final\\sdk\\.cxx\\cmake\\release\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "opencv_jni_shared-Release-x86": {
+      "buildCommandComponents": [
+        "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+        "-C",
+        "C:\\Users\\sb933\\GIT\\final_proje\\android_final\\sdk\\.cxx\\cmake\\release\\x86",
+        "opencv_jni_shared"
+      ],
+      "buildType": "release",
+      "abi": "x86",
+      "artifactName": "opencv_jni_shared",
+      "output": "C:\\Users\\sb933\\GIT\\final_proje\\android_final\\sdk\\.cxx\\cmake\\release\\x86\\libopencv_jni_shared.a"
+    }
+  },
+  "toolchains": {},
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

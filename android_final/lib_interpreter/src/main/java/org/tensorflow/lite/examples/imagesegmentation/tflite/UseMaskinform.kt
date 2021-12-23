@@ -195,10 +195,10 @@ class UseMaskinform(){
 
         var temp = tempFront[1]!!
 
-        if (temp == "braille") {
-            brailleFlag = findBraille(patch, brailleFlag)
+        //if (temp == "braille") {
+        //    brailleFlag = findBraille(patch, brailleFlag)
 
-        }
+       // }
         if (prev != temp) {
             if (temp == "obstacle"){
                 this.TTScallback?.invoke("전방에 장애물이 있습니다. 다른 방향을 확인해주세요")
@@ -229,15 +229,6 @@ class UseMaskinform(){
         return Pair(temp, tempStack)
     }
 
-    private fun TTSbraille(flag : Int) : Int{
-        when(flag){
-            4 -> {}
-            1 -> this.TTScallback?.invoke("곧 좌측에 점자블록이 있습니다.")
-            3 -> this.TTScallback?.invoke("전방에 점자블록이 있습니다.")
-            2 -> this.TTScallback?.invoke("곧 우측에 점자블록이 있습니다.")
-        }
-        return flag
-    }
     private fun TTScallback(prev : String, temp : String){
         val str : String = KoreanClass[temp] + partClass[temp]
         if (temp == "roadway" || temp == "alley" || temp == "bike"){

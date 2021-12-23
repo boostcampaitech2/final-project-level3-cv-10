@@ -1,0 +1,2 @@
+ninja: Entering directory `C:\Users\sb933\GIT\final_proje\android_final\sdk\.cxx\cmake\release\x86'
+ninja: no work to do.
