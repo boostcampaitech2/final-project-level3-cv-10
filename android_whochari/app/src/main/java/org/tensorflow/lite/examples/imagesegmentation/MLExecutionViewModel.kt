@@ -25,7 +25,7 @@ import kotlinx.coroutines.*
 import java.io.File
 import org.tensorflow.lite.examples.imagesegmentation.tflite.ImageSegmentationModelExecutor
 import org.tensorflow.lite.examples.imagesegmentation.tflite.ModelExecutionResult
-import org.tensorflow.lite.examples.imagesegmentation.tflite.UseMaskinform
+import org.tensorflow.lite.examples.imagesegmentation.tflite.UseMaskInform
 import org.tensorflow.lite.examples.imagesegmentation.utils.ImageUtils
 
 private const val TAG = "MLExecutionViewModel"
@@ -46,7 +46,7 @@ class MLExecutionViewModel : ViewModel() {
     filePath: String,
     imageSegmentationModel: ImageSegmentationModelExecutor?,
     inferenceThread: ExecutorCoroutineDispatcher,
-    ttsclass : UseMaskinform,
+    ttsclass : UseMaskInform,
     demoButton_flag : Boolean
   ): Deferred<Long> {
       val t = viewModelScope.async(inferenceThread) {

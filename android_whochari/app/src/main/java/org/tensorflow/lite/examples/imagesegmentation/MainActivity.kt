@@ -53,7 +53,7 @@ import java.util.concurrent.Executors
 import org.tensorflow.lite.examples.imagesegmentation.camera.CameraFragment
 import org.tensorflow.lite.examples.imagesegmentation.tflite.ImageSegmentationModelExecutor
 import org.tensorflow.lite.examples.imagesegmentation.tflite.ModelExecutionResult
-import org.tensorflow.lite.examples.imagesegmentation.tflite.UseMaskinform
+import org.tensorflow.lite.examples.imagesegmentation.tflite.UseMaskInform
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -71,7 +71,7 @@ private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished{
 
   private lateinit var cameraFragment: CameraFragment
-  private var TTSCallBack = UseMaskinform()
+  private var TTSCallBack = UseMaskInform()
   private lateinit var viewModel: MLExecutionViewModel
   private lateinit var viewFinder: FrameLayout
   private lateinit var gridImageView: ImageView

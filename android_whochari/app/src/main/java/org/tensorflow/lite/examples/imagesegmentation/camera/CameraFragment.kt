@@ -329,7 +329,7 @@ class CameraFragment : Fragment() {
     )
 
     val captureRequest =
-      session.device.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE).apply {
+      session.device.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW).apply {
         addTarget(imageReader.surface)
       }
     session.capture(

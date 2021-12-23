@@ -41,7 +41,7 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 import org.tensorflow.lite.nnapi.NnApiDelegate;
 import org.tensorflow.lite.Interpreter;
-import org.tensorflow.lite.examples.imagesegmentation.tflite.UseMaskinform
+import org.tensorflow.lite.examples.imagesegmentation.tflite.UseMaskInform
 import java.io.*
 
 /**
@@ -92,7 +92,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   }
 
 
-  fun execute(data: Bitmap, ttsclass : UseMaskinform, demoButton_flag : Boolean): ModelExecutionResult {
+  fun execute(data: Bitmap, ttsclass : UseMaskInform, demoButton_flag : Boolean): ModelExecutionResult {
     try {
       fullTimeExecutionTime = SystemClock.uptimeMillis()
       preprocessTime = SystemClock.uptimeMillis()
