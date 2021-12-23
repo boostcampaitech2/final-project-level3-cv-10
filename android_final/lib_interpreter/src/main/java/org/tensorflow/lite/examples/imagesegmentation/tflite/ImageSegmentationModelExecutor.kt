@@ -65,7 +65,7 @@ class ImageSegmentationModelExecutor(context: Context, private var useGPU: Boole
   private var maskFlatteningTime = 0L
 
   private var statusLog : String = ""
-  private var numberThreads = 8
+  private var numberThreads = 2
   private val matInput: Mat? = null
   private val matResult: Mat? = null
   private var demoIndex = 2630

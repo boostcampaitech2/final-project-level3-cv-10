@@ -98,7 +98,10 @@
     "soFolder": "C:\\Users\\sb933\\GIT\\final_proje\\android_final\\sdk\\build\\intermediates\\cmake\\debug\\lib",
     "isDebuggableEnabled": true,
     "validAbiList": [
-      "X86"
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
     ],
     "buildTargetSet": [
       "opencv_jni_shared"
@@ -204,7 +207,6 @@
         "sdkFolder": "C:\\Users\\sb933\\AppData\\Local\\Android\\Sdk",
         "isNativeCompilerSettingsCacheEnabled": false,
         "isBuildOnlyTargetAbiEnabled": true,
-        "ideBuildTargetAbi": "x86",
         "isCmakeBuildCohabitationEnabled": false,
         "isPrefabEnabled": false,
         "isV2NativeModelEnabled": true

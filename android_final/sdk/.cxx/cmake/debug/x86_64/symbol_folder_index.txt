@@ -1,1 +1,1 @@
-D:\AI_BoostCamp_Naver\Task\Final\Git\android_whochari\sdk\build\intermediates\cmake\debug\obj\x86_64
+C:\Users\sb933\GIT\final_proje\android_final\sdk\build\intermediates\cmake\debug\obj\x86_64
