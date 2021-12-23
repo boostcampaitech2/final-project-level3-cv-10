@@ -135,3 +135,34 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+android_whochari/local.properties
+android_whochari/.idea/modules/lib_task_api/TFLite_Image_Segmentation_Demo_App.lib_task_api.iml
+android_whochari/app/src/main/assets/tflite2.tflite
+android_whochari/sdk/.cxx/abi_configuration_ep3a6a2i.json
+android_whochari/sdk/.cxx/abi_configuration_ep3a6a2i_key.json
+android_whochari/sdk/.cxx/cmake/debug/arm64-v8a/CMakeFiles/3.10.2/CMakeCCompiler.cmake
+android_whochari/sdk/.cxx/cmake/debug/arm64-v8a/CMakeFiles/3.10.2/CMakeCXXCompiler.cmake
+android_whochari/sdk/.cxx/cmake/debug/arm64-v8a/CMakeFiles/3.10.2/CMakeSystem.cmake
+android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/.ninja_deps
+android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/.ninja_log
+android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/android_gradle_build_command_opencv_jni_shared_armeabi-v7a.txt
+android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/android_gradle_build_stderr_opencv_jni_shared_armeabi-v7a.txt
+android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/android_gradle_build_stdout_opencv_jni_shared_armeabi-v7a.txt
+android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/libopencv_jni_shared.a
+android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeCCompiler.cmake
+android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeCXXCompiler.cmake
+android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake
+android_whochari/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/opencv_jni_shared.dir/dummy.cpp.o
+android_whochari/sdk/.cxx/cmake/debug/x86/.ninja_deps
+android_whochari/sdk/.cxx/cmake/debug/x86/.ninja_log
+android_whochari/sdk/.cxx/cmake/debug/x86/android_gradle_build_command_opencv_jni_shared_x86.txt
+android_whochari/sdk/.cxx/cmake/debug/x86/android_gradle_build_stderr_opencv_jni_shared_x86.txt
+android_whochari/sdk/.cxx/cmake/debug/x86/android_gradle_build_stdout_opencv_jni_shared_x86.txt
+android_whochari/sdk/.cxx/cmake/debug/x86/libopencv_jni_shared.a
+android_whochari/sdk/.cxx/cmake/debug/x86_64/.ninja_deps
+android_whochari/sdk/.cxx/cmake/debug/x86_64/.ninja_log
+android_whochari/sdk/.cxx/cmake/debug/x86_64/libopencv_jni_shared.a
+android_whochari/sdk/.cxx/cmake/debug/x86/CMakeFiles/3.10.2/CMakeCCompiler.cmake
+android_whochari/sdk/.cxx/cmake/debug/x86/CMakeFiles/3.10.2/CMakeCXXCompiler.cmake
+android_whochari/sdk/.cxx/cmake/debug/x86/CMakeFiles/3.10.2/CMakeSystem.cmake
+android_whochari/sdk/.cxx/cmake/debug/x86/CMakeFiles/opencv_jni_shared.dir/dummy.cpp.o
