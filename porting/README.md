@@ -2,10 +2,10 @@
 
 ## Pytorch로 학습한 모델(.pt/.pth)을 ONNX(.onnx), Tensorflow(.pb), TFLite(.tflite) 파일로 변환하면서 FP16과 Optimization option을 활성화하여 수행하였습니다.
 
-참조 : 
+### 참조 : 
 https://github.com/sithu31296/PyTorch-ONNX-TFLite#onnx-model-inference
-#https://github.com/sithu31296/PyTorch-ONNX-TFLite
-#https://www.tensorflow.org/lite/performance/post_training_quantization?hl=ko
+https://github.com/sithu31296/PyTorch-ONNX-TFLite
+https://www.tensorflow.org/lite/performance/post_training_quantization?hl=ko
 
 ---
 ### 업데이트 내역
