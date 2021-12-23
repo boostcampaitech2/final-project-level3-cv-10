@@ -2,21 +2,21 @@
   {
     "level": "INFO",
     "message": "Start JSON generation. Platform version: 21 min SDK version: arm64-v8a",
-    "file": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\libcxx_helper\\CMakeLists.txt",
+    "file": "C:\\Users\\sb933\\GIT\\final_proje\\android_whochari\\sdk\\libcxx_helper\\CMakeLists.txt",
     "tag": "debug|arm64-v8a",
     "diagnosticCode": "UNKNOWN"
   },
   {
     "level": "INFO",
-    "message": "JSON \u0027C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a\\android_gradle_build.json\u0027 was up-to-date",
-    "file": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\libcxx_helper\\CMakeLists.txt",
+    "message": "JSON \u0027C:\\Users\\sb933\\GIT\\final_proje\\android_whochari\\sdk\\.cxx\\cmake\\debug\\arm64-v8a\\android_gradle_build.json\u0027 was up-to-date",
+    "file": "C:\\Users\\sb933\\GIT\\final_proje\\android_whochari\\sdk\\libcxx_helper\\CMakeLists.txt",
     "tag": "debug|arm64-v8a",
     "diagnosticCode": "UNKNOWN"
   },
   {
     "level": "INFO",
     "message": "JSON generation completed without problems",
-    "file": "C:\\Users\\sb933\\GIT\\final_pro\\android_whochari\\sdk\\libcxx_helper\\CMakeLists.txt",
+    "file": "C:\\Users\\sb933\\GIT\\final_proje\\android_whochari\\sdk\\libcxx_helper\\CMakeLists.txt",
     "tag": "debug|arm64-v8a",
     "diagnosticCode": "UNKNOWN"
   }

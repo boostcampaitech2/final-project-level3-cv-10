@@ -1,1 +1,1 @@
-C:\Users\sb933\GIT\final_pro\android_whochari\sdk\build\intermediates\cmake\debug\obj\armeabi-v7a
+C:\Users\sb933\GIT\final_proje\android_whochari\sdk\build\intermediates\cmake\debug\obj\armeabi-v7a

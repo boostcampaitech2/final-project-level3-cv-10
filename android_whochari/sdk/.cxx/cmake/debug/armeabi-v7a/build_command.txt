@@ -1,7 +1,7 @@
                     Executable : C:\Users\sb933\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\cmake.exe
 arguments : 
--HC:\Users\sb933\GIT\final_pro\android_whochari\sdk\libcxx_helper
--DCMAKE_FIND_ROOT_PATH=C:\Users\sb933\GIT\final_pro\android_whochari\sdk\.cxx\cmake\debug\prefab\armeabi-v7a\prefab
+-HC:\Users\sb933\GIT\final_proje\android_whochari\sdk\libcxx_helper
+-DCMAKE_FIND_ROOT_PATH=C:\Users\sb933\GIT\final_proje\android_whochari\sdk\.cxx\cmake\debug\prefab\armeabi-v7a\prefab
 -DCMAKE_BUILD_TYPE=Debug
 -DCMAKE_TOOLCHAIN_FILE=C:\Users\sb933\AppData\Local\Android\Sdk\ndk\21.4.7075529\build\cmake\android.toolchain.cmake
 -DANDROID_ABI=armeabi-v7a
@@ -10,13 +10,13 @@ arguments :
 -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a
 -DCMAKE_ANDROID_NDK=C:\Users\sb933\AppData\Local\Android\Sdk\ndk\21.4.7075529
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\Users\sb933\GIT\final_pro\android_whochari\sdk\build\intermediates\cmake\debug\obj\armeabi-v7a
--DCMAKE_RUNTIME_OUTPUT_DIRECTORY=C:\Users\sb933\GIT\final_pro\android_whochari\sdk\build\intermediates\cmake\debug\obj\armeabi-v7a
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\Users\sb933\GIT\final_proje\android_whochari\sdk\build\intermediates\cmake\debug\obj\armeabi-v7a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=C:\Users\sb933\GIT\final_proje\android_whochari\sdk\build\intermediates\cmake\debug\obj\armeabi-v7a
 -DCMAKE_MAKE_PROGRAM=C:\Users\sb933\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_SYSTEM_VERSION=21
 -DANDROID_STL=c++_shared
--BC:\Users\sb933\GIT\final_pro\android_whochari\sdk\.cxx\cmake\debug\armeabi-v7a
+-BC:\Users\sb933\GIT\final_proje\android_whochari\sdk\.cxx\cmake\debug\armeabi-v7a
 -GNinja
 jvmArgs : 
 
