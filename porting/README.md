@@ -1,6 +1,6 @@
 # Pytorch to Android Porting
 ### - Pytorch로 학습한 model(.pt/.pth)을 ONNX(.onnx), Tensorflow(.pb), TFLite(.tflite) 파일로 변환
-### - P16과 Optimization option을 활성화
+### - FP16과 Optimization option을 활성화
 ## 실행 방법
 - porting.ipynb 실행
 
