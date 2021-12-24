@@ -276,8 +276,7 @@ def _mobilenet_v3_conf(arch: str,
 
 def _mobilenet_v3_model(
         arch: str, inverted_residual_setting: List[InvertedResidualConfig],
-        last_channel: int, pretrained: bool, progress: bool,
-        reduced_tail: bool, **kwargs: Any):
+        last_channel: int, pretrained: bool, progress: bool, **kwargs: Any):
     model = MobileNetV3(inverted_residual_setting, last_channel, **kwargs)
     if pretrained:
         if model_urls.get(arch, None) is None:
@@ -285,23 +284,39 @@ def _mobilenet_v3_model(
                 "No checkpoint is available for model type {}".format(arch))
         state_dict = load_state_dict_from_url(model_urls[arch],
                                               progress=progress)
+        model.load_state_dict(state_dict)
+    return model
 
-        if reduced_tail:
-            for weight_name in list(state_dict.keys())[-76:]:
-                del state_dict[weight_name]
 
-            model.load_state_dict(state_dict, strict=False)
+def _mobilenet_v3_model_reduced_tail(
+        arch: str, inverted_residual_setting: List[InvertedResidualConfig],
+        last_channel: int, pretrained: bool, progress: bool, **kwargs: Any):
+    model = MobileNetV3(inverted_residual_setting, last_channel, **kwargs)
+    if pretrained:
+
+        if arch == "mobilenet_v3_large":
+            tmp = torch.load(
+                '/opt/ml/.cache/torch/hub/checkpoints/mobilenet_v3_large-8738ca79.pth'
+            )
+        elif arch == "mobilenet_v3_small":
+            tmp = torch.load(
+                '/opt/ml/.cache/torch/hub/checkpoints/mobilenet_v3_small-047dcff4.pth'
+            )
         else:
-            model.load_state_dict(state_dict)
+            raise PermissionError
+
+        for w_name in list(tmp.keys())[-76:]:
+            del tmp[w_name]
+
+        model.load_state_dict(tmp, strict=False)
 
     return model
 
 
-def mobilenet_v3(pretrained: bool = True,
-                 small: bool = True,
-                 progress: bool = True,
-                 reduced_tail: bool = True,
-                 **kwargs: Any) -> MobileNetV3:
+def mobilenet_v3_large(pretrained: bool = False,
+                       progress: bool = True,
+                       reduced_tail: bool = False,
+                       **kwargs: Any) -> MobileNetV3:
     """
     Constructs a large MobileNetV3 architecture from
     `"Searching for MobileNetV3" <https://arxiv.org/abs/1905.02244>`_.
@@ -310,12 +325,41 @@ def mobilenet_v3(pretrained: bool = True,
         pretrained (bool): If True, returns a model pre-trained on ImageNet
         progress (bool): If True, displays a progress bar of the download to stderr
     """
-    if small:
-        arch = "mobilenet_v3_small"
-    else:
-        arch = "mobilenet_v3_large"
-
+    arch = "mobilenet_v3_large"
     inverted_residual_setting, last_channel = _mobilenet_v3_conf(
         arch, reduced_tail=reduced_tail, **kwargs)
-    return _mobilenet_v3_model(arch, inverted_residual_setting, last_channel,
-                               pretrained, progress, reduced_tail, **kwargs)
+    if reduced_tail:
+        return _mobilenet_v3_model_reduced_tail(arch,
+                                                inverted_residual_setting,
+                                                last_channel, pretrained,
+                                                progress, **kwargs)
+    else:
+        return _mobilenet_v3_model(arch, inverted_residual_setting,
+                                   last_channel, pretrained, progress,
+                                   **kwargs)
+
+
+def mobilenet_v3_small(pretrained: bool = False,
+                       progress: bool = True,
+                       reduced_tail: bool = False,
+                       **kwargs: Any) -> MobileNetV3:
+    """
+    Constructs a small MobileNetV3 architecture from
+    `"Searching for MobileNetV3" <https://arxiv.org/abs/1905.02244>`_.
+
+    Args:
+        pretrained (bool): If True, returns a model pre-trained on ImageNet
+        progress (bool): If True, displays a progress bar of the download to stderr
+    """
+    arch = "mobilenet_v3_small"
+    inverted_residual_setting, last_channel = _mobilenet_v3_conf(
+        arch, reduced_tail=reduced_tail, **kwargs)
+    if reduced_tail:
+        return _mobilenet_v3_model_reduced_tail(arch,
+                                                inverted_residual_setting,
+                                                last_channel, pretrained,
+                                                progress, **kwargs)
+    else:
+        return _mobilenet_v3_model(arch, inverted_residual_setting,
+                                   last_channel, pretrained, progress,
+                                   **kwargs)

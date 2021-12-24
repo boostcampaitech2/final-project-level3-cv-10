@@ -1,7 +1,6 @@
 import os
 
 import numpy as np
-import pandas as pd
 
 from torch.utils.data import Dataset
 
@@ -12,9 +11,6 @@ from albumentations.pytorch import ToTensorV2
 from pycocotools.coco import COCO
 
 from utils import timer
-# class_colormap = pd.read_csv(
-#     "/opt/ml/segmentation/baseline_code/class_dict.csv")
-# palette = class_colormap.iloc[:, 1:].values.astype(np.uint8)
 
 CLASSES = [
     'background', 'alley_crosswalk', 'alley_damaged', 'alley_normal',
@@ -36,8 +32,8 @@ def get_train_transform():
         A.RandomCrop(240, 320),
         A.HorizontalFlip(p=0.5),
         A.RandomBrightnessContrast(p=0.3),
-        # A.GaussNoise(p=0.3),
-        # A.Blur(blur_limit=4, p=0.2),
+        A.GaussNoise(p=0.3),
+        A.Blur(blur_limit=4, p=0.2),
         # A.Normalize(),
         ToTensorV2()
     ])
