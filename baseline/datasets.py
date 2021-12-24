@@ -32,8 +32,8 @@ def get_train_transform():
         A.RandomCrop(240, 320),
         A.HorizontalFlip(p=0.5),
         A.RandomBrightnessContrast(p=0.3),
-        # A.GaussNoise(p=0.3),
-        # A.Blur(blur_limit=4, p=0.2),
+        A.GaussNoise(p=0.3),
+        A.Blur(blur_limit=4, p=0.2),
         # A.Normalize(),
         ToTensorV2()
     ])
