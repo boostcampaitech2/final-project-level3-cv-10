@@ -298,8 +298,8 @@ class CameraFragment : Fragment() {
               time.await()
             }
             val wait_time : Long = wait_time_log.await()
-            Log.d("time is ", "${wait_time}")
-            delay(wait_time)
+            //Log.d("time is ", "${wait_time}")
+            //delay(wait_time)
           }
         //(1000)
       }

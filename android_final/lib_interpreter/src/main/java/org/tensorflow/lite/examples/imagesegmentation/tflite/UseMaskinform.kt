@@ -85,14 +85,14 @@ class UseMaskinform(){
         // 5, 8, 9
         val centeri = IntArray(10) {i -> i + 5} // width
         val centerj = IntArray(7) {i -> i + 4} // height
-        var noticeList = IntArray(10) {0}
+        var noticeList = IntArray(13) {0}
         var count : Int = 0
-        var noticeMap = mapOf(4 to "bump", 8 to "grating", 9 to "manhole")
+        var noticeMap = mapOf(4 to "bump", 8 to "grating", 9 to "manhole", 11 to "stair", 12 to "tree")
         for(i in centeri){
             for(j in centerj){
                 if (judgeArrays[patch[i][j]] == 3){
                     count += 1
-                    if (patch[i][j] == 4 || patch[i][j] == 8 || patch[i][j] == 9){
+                    if (patch[i][j] == 4 || patch[i][j] == 8 || patch[i][j] == 9 || patch[i][j] == 11 || patch[i][j] == 12){
                         noticeList[patch[i][j]] += 1
                     }
                 }
@@ -248,6 +248,8 @@ class UseMaskinform(){
                 = mapOf("alley" to "이면도로",
             "manhole" to "맨홀",
             "bump" to "과속방지턱",
+            "stair" to "계단",
+            "tree" to "나무",
             "grating" to "배수구",
             "sidewalk" to "인도",
             "notice" to "주의구역",
@@ -261,6 +263,8 @@ class UseMaskinform(){
                 = mapOf("alley" to "가",
             "manhole" to "이",
             "bump" to "이",
+            "stair" to "이",
+            "tree" to "가",
             "grating" to "가",
             "sidewalk" to "가",
             "notice" to "이",
@@ -285,13 +289,13 @@ class UseMaskinform(){
         )
 
         private val judgeArrays : Array<Int> = arrayOf(
-            5, 7, 7, 7,
+            5, 8, 7, 7,
             3, 6, 4,
             4, 3,
-            3, 5, 0,
-            2, 8, 2,
+            3, 5, 3,
+            3, 8, 2,
             1, 1, 1,
-            0, 1, 1,
+            1, 1, 1,
             1
         )
         private val hash2judge : Array<String> = arrayOf("disregard", "sidewalk", "roadway",
@@ -306,7 +310,6 @@ class UseMaskinform(){
             "obstacle" to 5,
             "roadway" to 3,
             "crosswalk" to 2) // 서열(낮을수록 높은것)
-        private var brailleFlag : BooleanArray = booleanArrayOf(false, false, false)
-        private val count : Int = 3
+        private val count : Int = 2
     }
 }
