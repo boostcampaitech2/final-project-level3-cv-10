@@ -1,3 +1,0 @@
-C:/Users/sb933/GIT/final/android/android_20211216/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/opencv_jni_shared.dir
-C:/Users/sb933/GIT/final/android/android_20211216/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/edit_cache.dir
-C:/Users/sb933/GIT/final/android/android_20211216/sdk/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/rebuild_cache.dir

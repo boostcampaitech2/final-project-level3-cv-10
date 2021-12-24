@@ -1,3 +1,0 @@
-D:/AI_BoostCamp_Naver/Task/Final/Git/android_whochari/sdk/.cxx/cmake/debug/x86_64/CMakeFiles/opencv_jni_shared.dir
-D:/AI_BoostCamp_Naver/Task/Final/Git/android_whochari/sdk/.cxx/cmake/debug/x86_64/CMakeFiles/edit_cache.dir
-D:/AI_BoostCamp_Naver/Task/Final/Git/android_whochari/sdk/.cxx/cmake/debug/x86_64/CMakeFiles/rebuild_cache.dir
