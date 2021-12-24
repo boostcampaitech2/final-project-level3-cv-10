@@ -1,5 +1,4 @@
 # built-in
-import pdb
 import time
 import logging
 
@@ -26,7 +25,6 @@ def train(
     criterion,
     device,
     scheduler=None,
-    # epoch_div=5,
     train_process: list = ['train', 'val'],
     autocast_enabled: bool = False,
     aux: bool = False,
@@ -35,7 +33,6 @@ def train(
     if autocast_enabled:
         scaler = GradScaler()
 
-    # metric = {phase: {} for phase in train_process}
     metric = {}
 
     for phase in train_process:
@@ -77,7 +74,6 @@ def train(
                 else:
                     loss = criterion(outputs, masks)
 
-
                 if phase == 'train':
                     if not autocast_enabled:
                         loss.backward()
@@ -93,7 +89,6 @@ def train(
 
             _time = time.perf_counter()
             masks = masks.cpu().numpy()
-            # outputs = outputs.detach().cpu().numpy()
             outputs = torch.argmax(outputs, dim=1).detach().cpu().numpy()
             hist = add_hist(hist, masks, outputs, n_class=22)
             hist_time += time.perf_counter() - _time
@@ -163,7 +158,6 @@ def test(model,
 
         _time = time.perf_counter()
         masks = masks.cpu().numpy()
-        # outputs = outputs.detach().cpu().numpy()
         outputs = torch.argmax(outputs, dim=1).detach().cpu().numpy()
 
         hist = add_hist(hist, masks, outputs, n_class=22)

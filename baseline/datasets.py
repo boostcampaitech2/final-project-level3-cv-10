@@ -1,7 +1,6 @@
 import os
 
 import numpy as np
-import pandas as pd
 
 from torch.utils.data import Dataset
 
@@ -12,9 +11,6 @@ from albumentations.pytorch import ToTensorV2
 from pycocotools.coco import COCO
 
 from utils import timer
-# class_colormap = pd.read_csv(
-#     "/opt/ml/segmentation/baseline_code/class_dict.csv")
-# palette = class_colormap.iloc[:, 1:].values.astype(np.uint8)
 
 CLASSES = [
     'background', 'alley_crosswalk', 'alley_damaged', 'alley_normal',

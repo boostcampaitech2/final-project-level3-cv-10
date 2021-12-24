@@ -9,7 +9,6 @@ import time
 
 
 def timer(func):
-    """Print the runtime of the decorated function"""
     @functools.wraps(func)
     def wrapper_timer(*args, **kwargs):
         start_time = time.perf_counter()  # 1
@@ -36,7 +35,7 @@ def set_random_seed(random_seed,
     random.seed(random_seed)
 
 
-# # https://github.com/wkentaro/pytorch-fcn/blob/master/torchfcn/utils.py
+# https://github.com/wkentaro/pytorch-fcn/blob/master/torchfcn/utils.py
 
 
 def _fast_hist(label_true, label_pred, n_class):
