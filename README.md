@@ -1,5 +1,3 @@
-# README.md
-
 # **Recognition of a walking danger zone for the visually impaired using segmentation**
 
 ---
