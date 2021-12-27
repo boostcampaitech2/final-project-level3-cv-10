@@ -3,10 +3,12 @@
 
 ## 실험 기기
 galaxy tab s6
+사용 배터리 : 최소 밝기 기준, 약 5분에 70mAh
+사용 메모리 : 최대 270MB
 ***
 
 ## 후처리
-- **전방 판별 기준 ** : width(0을 가장 왼쪽)을 4\~15, height을(0을 사용자와 가장 먼 기준)2\~9 에 해당하는 grid
+- **전방 판별 기준** : width(0을 가장 왼쪽)을 4\~15, height을(0을 사용자와 가장 먼 기준)2\~9 에 해당하는 grid
 
 
 - **사용자 위협 거리 판별기준** : width(0을 가장 왼쪽)을 5\~14, height을(0을 사용자와 가장 먼 기준)4\~11 에 해당하는 grid
@@ -17,6 +19,8 @@ galaxy tab s6
     -  전방에 점자블록에 해당하는 grid가 5개 이상 존재할 시 전방에 점자블록이 있음을 판별
   - 장애물(Obstacle)
     - 장애물에 대한 label의 없는 관계로, "background"를 장애물로 판별
+    ![image](https://user-images.githubusercontent.com/71861842/147430047-98ec6f62-298f-4dea-be1b-c6125486065e.png)
+
     - 전방에 장애물에 해당하는 grid가 존재할시 최빈값이 장애물일 때 혹은 **사용자 위협거리**에 해당하는 grid가 10개 이상일경우 장애물 판별
   - 주의구역(findNotice)
     - Notice에 해당하는 label : 과속방지턱(bump), 배수구(grating), 맨홀(manhole), 계단(stair), 나무가 존재하는 지역(tree)
