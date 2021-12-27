@@ -46,6 +46,9 @@ final-project-level3-cv-10
 Android (only)
 
 - Install APK on Device
+  - (필수 !) 개발자모드 - USB 디버깅 허용
+  - 개발자 모드 켜는법
+    - 갤럭시 기종 : 소프트 웨어 정보 - 빌드번호 7번 연속으로 터치하면 개발자 모드가 활성화 됩니다.
 
 *ios not supported
 
