@@ -4,9 +4,10 @@
 ## 실험 기기
 galaxy tab s6
 ***
+
 ## 후처리
-- **전방 판별 기준 **: width(0을 가장 왼쪽)을 4~15, height을(0을 사용자와 가장 먼 기준)2~9 에 해당하는 grid
-- **사용자 위협 거리 판별기준** : 
+- **전방 판별 기준 ** : width(0을 가장 왼쪽)을 4~15, height을(0을 사용자와 가장 먼 기준)2~9 에 해당하는 grid
+- **사용자 위협 거리 판별기준** : width(0을 가장 왼쪽)을 5~14, height을(0을 사용자와 가장 먼 기준)4~11 에 해당하는 grid
 - 전방을 기준으로 상황이 바뀌면 다음과 같이 동작합니다
   - 점자블록(braille)
     -  전방에 점자블록에 해당하는 grid가 5개 이상 존재할 시 전방에 점자블록이 있음을 판별
@@ -20,4 +21,9 @@ galaxy tab s6
       - 해당하는 grid가 10개 이상 존재할 시 해당하는 label을 반환
       - 존재하지 않을시 notice label을 무시
   - 이외의 label은 최빈값을 이용해 계산합니다.
+- 전방이 현재 label과 다르고, 2번이상 연속된 label이 등장할 시에 지정된 문구를 TTS로 읽어주고, 현재 상황을 등장한 label로 변경합니다.
+- TTS는 Android의 TextToSpeech library를 사용하였습니다. https://developer.android.com/reference/android/speech/tts/TextToSpeech
+***
 
+## reference
+https://www.tensorflow.org/lite/examples/segmentation/overview
