@@ -34,40 +34,13 @@ class UseMaskinform(){
         return maskDistinguish(patch, centeri, centerj)
     }
 
-    private fun findBraille(patch: Array<Array<Int>>, flag : BooleanArray) : BooleanArray{
-        var centeri = IntArray(6) {i -> i}// width
-        var centerj =IntArray(7) {i -> i + 8} // height
-        if (maskDistinguish(patch, centeri, centerj) == "braille") {
-            if (!flag[0]) {
-                flag[0] = true
-                this.TTScallback?.invoke("좌측에 점자블럭이 있습니다.")
-            }
-        }
-        else{
-            flag[0] = false
-        }
-
-        centeri = IntArray(6) {i -> i + 14}// width
-        centerj = IntArray(7) {i -> i + 8} // height
-        if (maskDistinguish(patch, centeri, centerj) == "braille"){
-            if (!flag[2]) {
-                flag[2] = true
-                this.TTScallback?.invoke("우측에 점자블럭이 있습니다.")
-            }
-        }
-        else{
-            flag[2] = false
-        }
-        return flag
-    }
-
 
     private fun findObstacle(patch: Array<Array<Int>>) : Boolean{
         // 전방 위치
-       val centeri = IntArray(10) {i -> i + 5} // width
-       val centerj = IntArray(7) {i -> i + 4} // height
-       var count : Int = 0
-       for(i in centeri){
+        val centeri = IntArray(10) {i -> i + 5} // width
+        val centerj = IntArray(7) {i -> i + 4} // height
+        var count : Int = 0
+        for(i in centeri){
             for(j in centerj){
                 if (judgeArrays[patch[i][j]] == 5){
                     count += 1
@@ -125,7 +98,7 @@ class UseMaskinform(){
         if (tempMap.containsKey(5)){
             if (findObstacle(patch))
                 return "obstacle"
-            }
+        }
         if (tempMap.containsKey(3)){
             val flag : String = findNotice(patch)
             if (flag != "false") {
@@ -146,6 +119,9 @@ class UseMaskinform(){
         for ((k, v) in pixelMap){
             //Log.d("map is ", "$k, $v")
             val road : String = hash2judge[k]
+            if (road == "notice"){
+                continue
+            }
             if (road == "braille" && v > 5){
                 maxKey = road
                 break
@@ -198,7 +174,7 @@ class UseMaskinform(){
         //if (temp == "braille") {
         //    brailleFlag = findBraille(patch, brailleFlag)
 
-       // }
+        // }
         if (prev != temp) {
             if (temp == "obstacle"){
                 this.TTScallback?.invoke("전방에 장애물이 있습니다. 다른 방향을 확인해주세요")
@@ -299,8 +275,8 @@ class UseMaskinform(){
             1
         )
         private val hash2judge : Array<String> = arrayOf("disregard", "sidewalk", "roadway",
-                                                         "notice", "braille", "obstacle",
-                                                         "bike", "alley", "crosswalk")
+            "notice", "braille", "obstacle",
+            "bike", "alley", "crosswalk")
 
         private val rankRoad : Map<String, Int> = mapOf("alley" to 7,
             "sidewalk" to 8,
